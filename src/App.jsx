@@ -166,7 +166,7 @@ export default function App() {
       </nav>
 
       {/* Hero */}
-      <section className="min-h-screen flex items-center justify-center px-6 pt-20">
+      <section className="min-h-screen flex items-center justify-center px-6 pt-32">
         <div className="max-w-4xl mx-auto text-center">
 
           <h1 className="text-5xl md:text-7xl font-bold leading-tight mb-6">
