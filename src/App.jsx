@@ -74,7 +74,7 @@ export default function App() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a href="https://app.usefisioflow.com.br/cadastro" className="bg-green-500 hover:bg-green-400 text-black font-bold px-8 py-4 rounded-xl text-lg transition-colors">
-              Começar 14 dias grátis →
+              Começar 14 dias grátis
             </a>
             <a href="#funcionalidades" className="border border-white/20 hover:border-white/40 text-white font-medium px-8 py-4 rounded-xl text-lg transition-colors">
               Ver funcionalidades
