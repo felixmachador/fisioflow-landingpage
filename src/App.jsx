@@ -285,7 +285,7 @@ export default function App() {
                     </li>
                   ))}
                 </ul>
-                
+                <a
                   href="https://app.usefisioflow.com.br/cadastro"
                   className={`block text-center font-bold py-3 rounded-xl transition-colors ${p.destaque ? 'bg-black text-white hover:bg-gray-900' : 'bg-green-500 text-black hover:bg-green-400'}`}
                 >
@@ -333,7 +333,7 @@ export default function App() {
             <span className="text-green-400"> sua clínica?</span>
           </h2>
           <p className="text-gray-400 text-xl mb-10">Comece hoje. 14 dias grátis, sem cartão de crédito.</p>
-          
+          <a
             href="https://app.usefisioflow.com.br/cadastro"
             className="inline-block bg-green-500 hover:bg-green-400 text-black font-bold px-10 py-5 rounded-xl text-xl transition-colors"
           >
