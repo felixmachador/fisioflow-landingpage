@@ -84,15 +84,6 @@ const features = [
     title: 'Confirmações via WhatsApp',
     desc: 'A agenda envia lembretes e confirmações automáticas para seus pacientes pelo WhatsApp. Reduza faltas e mantenha sua agenda sempre cheia.'
   },
-  {
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" />
-      </svg>
-    ),
-    title: 'Assistente de IA Integrada',
-    desc: 'Pergunte sobre sua clínica, pacientes, agenda ou financeiro. Tire dúvidas técnicas, obtenha sugestões de tratamento e acelere sua rotina com inteligência artificial.'
-  },
 ]
 
 const plans = [
@@ -118,7 +109,7 @@ const faqs = [
   { q: 'Meus dados ficam seguros?', a: 'Sim. Seus dados ficam armazenados em servidores seguros com backup automático. Cada clínica só acessa seus próprios dados.' },
   { q: 'Posso cancelar quando quiser?', a: 'Sim, sem multas ou taxas. Cancele quando quiser diretamente pelo sistema.' },
   { q: 'Funciona para pilates e fisioterapia?', a: 'Sim! O FisioFlow foi construído especificamente para clínicas que atendem fisioterapia e pilates ao mesmo tempo.' },
-  { q: 'Tem período de teste gratuito?', a: 'Sim! 14 dias grátis, sem cartão de crédito. Experimente todas as funcionalidades sem compromisso.' },
+  { q: 'Tem período de teste gratuito?', a: 'Sim! 7 dias grátis, sem cartão de crédito. Experimente todas as funcionalidades sem compromisso.' },
   { q: 'E se eu tiver dúvidas?', a: 'Nossa equipe de suporte está disponível para ajudar você a configurar e usar o sistema. Você não vai ficar sozinha.' },
 ]
 
@@ -164,7 +155,7 @@ export default function App() {
       {/* Nav */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-white/10">
         <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-          <img src="/logo.png" alt="FisioFlow" className="h-8 w-auto object-contain brightness-200" />
+          <img src="/logo.png" alt="FisioFlow" className="h-16 w-auto object-contain brightness-200" />
           <div className="hidden md:flex items-center gap-8">
             <a href="#funcionalidades" className="text-sm text-gray-400 hover:text-white transition-colors">Funcionalidades</a>
             <a href="#precos" className="text-sm text-gray-400 hover:text-white transition-colors">Preços</a>
@@ -179,7 +170,7 @@ export default function App() {
         <div className="max-w-4xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 bg-green-500/10 border border-green-500/20 rounded-full px-4 py-2 mb-8">
             <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-            <span className="text-green-400 text-sm font-medium">Feito para fisioterapeutas brasileiras</span>
+            <span className="text-green-400 text-sm font-medium">Feito para fisioterapeutas</span>
           </div>
 
           <h1 className="text-5xl md:text-7xl font-bold leading-tight mb-6">
@@ -204,7 +195,7 @@ export default function App() {
               <p className="text-gray-400 text-sm mt-1">Online e seguro</p>
             </div>
             <div>
-              <p className="text-4xl font-bold text-green-400">14</p>
+              <p className="text-4xl font-bold text-green-400">7</p>
               <p className="text-gray-400 text-sm mt-1">Dias grátis</p>
             </div>
             <div>
@@ -222,7 +213,7 @@ export default function App() {
             <h2 className="text-4xl md:text-5xl font-bold mb-4">Tudo que sua clínica precisa</h2>
             <p className="text-gray-400 text-xl">Construído com fisioterapeutas, para fisioterapeutas.</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {features.map((f, i) => (
               <div key={i} className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-green-500/30 transition-all">
                 <div className="w-10 h-10 bg-green-500/10 rounded-xl flex items-center justify-center text-green-400 mb-4">
@@ -232,6 +223,25 @@ export default function App() {
                 <p className="text-gray-400 text-sm leading-relaxed">{f.desc}</p>
               </div>
             ))}
+          </div>
+
+          {/* Card IA — destaque full width */}
+          <div className="mt-6 bg-green-500 rounded-2xl p-8 flex items-center justify-between gap-8">
+            <div className="flex items-center gap-6">
+              <div className="w-14 h-14 bg-black/20 rounded-2xl flex items-center justify-center flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7 text-white">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456Z" />
+                </svg>
+              </div>
+              <div>
+                <div className="flex items-center gap-2 mb-1">
+                  <h3 className="text-xl font-bold text-black">Assistente de IA Integrada</h3>
+                  <span className="text-xs font-bold bg-black/20 text-black px-2 py-0.5 rounded-full">Em breve</span>
+                </div>
+                <p className="text-black/70 text-sm leading-relaxed">Pergunte sobre sua clínica, pacientes, agenda ou financeiro. Tire dúvidas técnicas, obtenha sugestões de tratamento e acelere sua rotina com inteligência artificial.</p>
+              </div>
+            </div>
+            <BotaoEspera className="flex-shrink-0 bg-black text-white font-bold px-6 py-3 rounded-xl hover:bg-gray-900 transition-colors whitespace-nowrap" />
           </div>
         </div>
       </section>
@@ -396,7 +406,7 @@ export default function App() {
           <img src="/logo.png" alt="FisioFlow" className="h-8 w-auto object-contain brightness-200" />
           <p className="text-gray-600 text-sm">© 2026 FisioFlow. Todos os direitos reservados.</p>
           <div className="flex gap-6">
-            <a href="https://app.usefisioflow.com.br" className="text-gray-400 hover:text-white text-sm transition-colors">Acessar sistema</a>
+            <div></div>
           </div>
         </div>
       </footer>
