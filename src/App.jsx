@@ -1,4 +1,6 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
+
+const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxfg22M3sU3A0QIlGnyrcQBWBQkfsdqyFOYRDuG3N2t6mNWaTB-soYfh6YvirmO3_jP/exec'
 
 const features = [
   {
@@ -113,14 +115,39 @@ const faqs = [
 
 export default function App() {
   const [faqAberto, setFaqAberto] = useState(null)
+  const [nome, setNome] = useState('')
   const [telefone, setTelefone] = useState('')
   const [email, setEmail] = useState('')
   const [enviado, setEnviado] = useState(false)
+  const [carregando, setCarregando] = useState(false)
+  const formRef = useRef(null)
 
-  const handleListaEspera = (e) => {
-    e.preventDefault()
-    setEnviado(true)
+  const scrollParaForm = () => {
+    formRef.current?.scrollIntoView({ behavior: 'smooth' })
   }
+
+  const handleListaEspera = async (e) => {
+    e.preventDefault()
+    setCarregando(true)
+    try {
+      await fetch(SHEETS_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome, telefone, email })
+      })
+      setEnviado(true)
+    } catch {
+      setEnviado(true)
+    }
+    setCarregando(false)
+  }
+
+  const BotaoEspera = ({ className }) => (
+    <button onClick={scrollParaForm} className={className}>
+      Quero acesso antecipado
+    </button>
+  )
 
   return (
     <div className="bg-black text-white font-sans">
@@ -133,7 +160,7 @@ export default function App() {
             <a href="#funcionalidades" className="text-sm text-gray-400 hover:text-white transition-colors">Funcionalidades</a>
             <a href="#precos" className="text-sm text-gray-400 hover:text-white transition-colors">Preços</a>
             <a href="#faq" className="text-sm text-gray-400 hover:text-white transition-colors">FAQ</a>
-            <a href="https://app.usefisioflow.com.br" className="text-sm bg-green-500 hover:bg-green-400 text-black font-semibold px-4 py-2 rounded-lg transition-colors">Começar grátis</a>
+            <BotaoEspera className="text-sm bg-green-500 hover:bg-green-400 text-black font-semibold px-4 py-2 rounded-lg transition-colors" />
           </div>
         </div>
       </nav>
@@ -155,49 +182,14 @@ export default function App() {
             Sistema completo para clínicas de fisioterapia e pilates. Com assistente de IA integrada para responder dúvidas e acelerar sua rotina.
           </p>
 
-          {/* Lista de espera */}
-          <div className="bg-white/5 border border-white/10 rounded-2xl p-8 max-w-xl mx-auto mb-10">
-            {enviado ? (
-              <div className="text-center py-4">
-                <p className="text-3xl mb-3">🎉</p>
-                <p className="text-green-400 font-semibold text-lg">Você está na lista!</p>
-                <p className="text-gray-400 text-sm mt-2">Entraremos em contato em breve com seu acesso antecipado.</p>
-              </div>
-            ) : (
-              <>
-                <p className="text-white font-semibold mb-1">Seja um dos primeiros a testar o FisioFlow.</p>
-                <p className="text-gray-400 text-sm mb-6">Entre na lista de espera e tenha acesso antecipado ao lançamento, além de condições exclusivas.</p>
-                <form onSubmit={handleListaEspera} className="space-y-3">
-                  <input
-                    type="tel"
-                    value={telefone}
-                    onChange={e => setTelefone(e.target.value)}
-                    placeholder="Seu telefone / WhatsApp"
-                    className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-green-500"
-                    required
-                  />
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
-                    placeholder="Seu melhor email"
-                    className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-green-500"
-                    required
-                  />
-                  <button
-                    type="submit"
-                    className="w-full bg-green-500 hover:bg-green-400 text-black font-bold py-3 rounded-xl transition-colors"
-                  >
-                    Quero acesso antecipado
-                  </button>
-                </form>
-              </>
-            )}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-20">
+            <BotaoEspera className="bg-green-500 hover:bg-green-400 text-black font-bold px-8 py-4 rounded-xl text-lg transition-colors" />
+            <a href="#funcionalidades" className="border border-white/20 hover:border-white/40 text-white font-medium px-8 py-4 rounded-xl text-lg transition-colors">
+              Ver funcionalidades
+            </a>
           </div>
 
-          <p className="text-gray-600 text-sm">Sem cartão de crédito. Cancele quando quiser.</p>
-
-          <div className="grid grid-cols-3 gap-8 mt-20 pt-20 border-t border-white/10">
+          <div className="grid grid-cols-3 gap-8 pt-20 border-t border-white/10">
             <div>
               <p className="text-4xl font-bold text-green-400">100%</p>
               <p className="text-gray-400 text-sm mt-1">Online e seguro</p>
@@ -264,9 +256,15 @@ export default function App() {
       {/* Preços */}
       <section id="precos" className="py-32 px-6">
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-16">
+          <div className="text-center mb-6">
             <h2 className="text-4xl md:text-5xl font-bold mb-4">Planos simples e transparentes</h2>
             <p className="text-gray-400 text-xl">Sem taxas escondidas. Cancele quando quiser.</p>
+          </div>
+          <div className="text-center mb-12">
+            <span className="inline-flex items-center gap-2 bg-green-500/10 border border-green-500/20 rounded-full px-4 py-2">
+              <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+              <span className="text-green-400 text-sm font-medium">Valores em breve — entre na lista de espera para condições exclusivas</span>
+            </span>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {plans.map((p, i) => (
@@ -274,8 +272,8 @@ export default function App() {
                 {p.destaque && <p className="text-xs font-bold bg-black/20 rounded-full px-3 py-1 inline-block mb-4">MAIS POPULAR</p>}
                 <h3 className={`text-xl font-bold mb-1 ${p.destaque ? 'text-black' : 'text-white'}`}>{p.name}</h3>
                 <p className={`text-sm mb-6 ${p.destaque ? 'text-black/70' : 'text-gray-400'}`}>{p.desc}</p>
-                <div className="mb-6">
-                  <span className={`text-5xl font-bold ${p.destaque ? 'text-black' : 'text-white'}`}>R${p.price}</span>
+                <div className="mb-6 relative">
+                  <span className={`text-5xl font-bold select-none blur-sm ${p.destaque ? 'text-black' : 'text-white'}`}>R${p.price}</span>
                   <span className={`text-sm ${p.destaque ? 'text-black/70' : 'text-gray-400'}`}>/mês</span>
                 </div>
                 <ul className="space-y-3 mb-8">
@@ -285,20 +283,65 @@ export default function App() {
                     </li>
                   ))}
                 </ul>
-                <a
-                  href="https://app.usefisioflow.com.br/cadastro"
-                  className={`block text-center font-bold py-3 rounded-xl transition-colors ${p.destaque ? 'bg-black text-white hover:bg-gray-900' : 'bg-green-500 text-black hover:bg-green-400'}`}
-                >
-                  Começar grátis
-                </a>
+                <BotaoEspera className={`w-full block text-center font-bold py-3 rounded-xl transition-colors ${p.destaque ? 'bg-black text-white hover:bg-gray-900' : 'bg-green-500 text-black hover:bg-green-400'}`} />
               </div>
             ))}
           </div>
         </div>
       </section>
 
+      {/* Lista de espera */}
+      <section ref={formRef} className="py-32 px-6 bg-white/3">
+        <div className="max-w-xl mx-auto text-center">
+          <h2 className="text-4xl font-bold mb-4">Garanta seu acesso antecipado</h2>
+          <p className="text-gray-400 mb-10">Seja um dos primeiros a testar o FisioFlow. Entre na lista de espera e tenha acesso antecipado ao lançamento, além de condições exclusivas.</p>
+
+          {enviado ? (
+            <div className="bg-green-500/10 border border-green-500/20 rounded-2xl p-10">
+              <p className="text-4xl mb-4">🎉</p>
+              <p className="text-green-400 font-semibold text-xl">Você está na lista!</p>
+              <p className="text-gray-400 text-sm mt-2">Entraremos em contato em breve com seu acesso antecipado.</p>
+            </div>
+          ) : (
+            <form onSubmit={handleListaEspera} className="space-y-3">
+              <input
+                type="text"
+                value={nome}
+                onChange={e => setNome(e.target.value)}
+                placeholder="Seu nome"
+                className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-green-500"
+                required
+              />
+              <input
+                type="tel"
+                value={telefone}
+                onChange={e => setTelefone(e.target.value)}
+                placeholder="Seu telefone / WhatsApp"
+                className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-green-500"
+                required
+              />
+              <input
+                type="email"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                placeholder="Seu melhor email"
+                className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-green-500"
+                required
+              />
+              <button
+                type="submit"
+                disabled={carregando}
+                className="w-full bg-green-500 hover:bg-green-400 text-black font-bold py-4 rounded-xl transition-colors disabled:opacity-50 text-lg"
+              >
+                {carregando ? 'Enviando...' : 'Quero acesso antecipado'}
+              </button>
+            </form>
+          )}
+        </div>
+      </section>
+
       {/* FAQ */}
-      <section id="faq" className="py-32 px-6 bg-white/3">
+      <section id="faq" className="py-32 px-6">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-4">Perguntas frequentes</h2>
@@ -326,20 +369,15 @@ export default function App() {
       </section>
 
       {/* CTA Final */}
-      <section className="py-32 px-6">
+      <section className="py-32 px-6 bg-white/3">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-4xl md:text-6xl font-bold mb-6">
             Pronta para transformar
             <span className="text-green-400"> sua clínica?</span>
           </h2>
-          <p className="text-gray-400 text-xl mb-10">Comece hoje. 14 dias grátis, sem cartão de crédito.</p>
-          <a
-            href="https://app.usefisioflow.com.br/cadastro"
-            className="inline-block bg-green-500 hover:bg-green-400 text-black font-bold px-10 py-5 rounded-xl text-xl transition-colors"
-          >
-            Começar grátis agora
-          </a>
-          <p className="text-gray-600 text-sm mt-6">Cancele quando quiser. Sem compromisso.</p>
+          <p className="text-gray-400 text-xl mb-10">Entre na lista de espera e garanta condições exclusivas de lançamento.</p>
+          <BotaoEspera className="inline-block bg-green-500 hover:bg-green-400 text-black font-bold px-10 py-5 rounded-xl text-xl transition-colors" />
+          <p className="text-gray-600 text-sm mt-6">Sem compromisso. Cancele quando quiser.</p>
         </div>
       </section>
 
@@ -350,7 +388,6 @@ export default function App() {
           <p className="text-gray-600 text-sm">© 2026 FisioFlow. Todos os direitos reservados.</p>
           <div className="flex gap-6">
             <a href="https://app.usefisioflow.com.br" className="text-gray-400 hover:text-white text-sm transition-colors">Acessar sistema</a>
-            <a href="https://app.usefisioflow.com.br/cadastro" className="text-gray-400 hover:text-white text-sm transition-colors">Cadastrar</a>
           </div>
         </div>
       </footer>
