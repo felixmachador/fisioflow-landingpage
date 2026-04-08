@@ -42,7 +42,7 @@ const features = [
   {
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
       </svg>
     ),
     title: 'Turmas de Pilates',
@@ -333,6 +333,73 @@ export default function App() {
         </div>
       </section>
 
+      {/* FisioFlow Club */}
+      <section className="py-16 md:py-28 px-4 md:px-6 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+            <div>
+              <div className="inline-flex items-center gap-2 bg-[#ecfdf5] border border-[#6ee7b7] rounded-full px-4 py-2 mb-6">
+                <span className="text-[#065f46] text-sm font-semibold">Exclusivo para assinantes</span>
+              </div>
+              <h2 className="serif text-3xl md:text-4xl lg:text-5xl text-gray-900 mb-4 leading-tight">
+                FisioFlow <span className="italic text-[#065f46]">Club</span>
+              </h2>
+              <p className="text-gray-500 text-base md:text-lg leading-relaxed mb-6 md:mb-8">
+                Assinar o FisioFlow vai além do sistema. No Club você tem acesso a descontos exclusivos em fornecedores, equipamentos, cursos e eventos do setor — benefícios pensados para quem vive a fisioterapia todos os dias.
+              </p>
+              <div className="space-y-4 mb-6 md:mb-8">
+                {[
+                  { titulo: 'Descontos em fornecedores', desc: 'Equipamentos, materiais e insumos com condições especiais negociadas para assinantes.' },
+                  { titulo: 'Eventos e congressos', desc: 'Acesso antecipado e descontos em eventos, cursos e congressos de fisioterapia e pilates.' },
+                  { titulo: 'Comunidade exclusiva', desc: 'Troca de experiências com outros fisioterapeutas, dicas de gestão e novidades do setor.' },
+                  { titulo: 'Parceiros selecionados', desc: 'Plataformas, softwares e serviços complementares com benefícios exclusivos para clientes FisioFlow.' },
+                ].map((item, i) => (
+                  <div key={i} className="flex items-start gap-4">
+                    <div className="w-8 h-8 bg-[#ecfdf5] rounded-xl flex items-center justify-center text-[#065f46] shrink-0 mt-0.5">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-gray-900 text-sm">{item.titulo}</p>
+                      <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <button onClick={irParaCadastro} className="w-full sm:w-auto bg-[#065f46] hover:bg-[#047857] text-white font-bold px-8 py-4 rounded-xl transition-all hover:shadow-lg hover:-translate-y-0.5">
+                Criar minha conta grátis
+              </button>
+            </div>
+            <div className="relative mt-2 lg:mt-0">
+              <div className="absolute inset-0 bg-gradient-to-br from-[#ecfdf5] to-[#d1fae5] rounded-3xl" />
+              <div className="relative p-6 md:p-8">
+                <p className="text-[#065f46] font-bold text-sm uppercase tracking-widest mb-4 md:mb-6">Parceiros do Club</p>
+                <div className="grid grid-cols-2 gap-3 md:gap-4">
+                  {[
+                    { categoria: 'Equipamentos', desconto: 'até 20% off', borda: '#6ee7b7' },
+                    { categoria: 'Cursos online', desconto: 'até 30% off', borda: '#93c5fd' },
+                    { categoria: 'Congressos', desconto: 'acesso VIP', borda: '#fcd34d' },
+                    { categoria: 'Softwares', desconto: 'planos especiais', borda: '#d8b4fe' },
+                    { categoria: 'Materiais', desconto: 'até 15% off', borda: '#6ee7b7' },
+                    { categoria: 'Eventos', desconto: 'desconto exclusivo', borda: '#fca5a5' },
+                  ].map((p, i) => (
+                    <div key={i} className="bg-white rounded-2xl p-3 md:p-4 border shadow-sm" style={{ borderColor: p.borda }}>
+                      <p className="text-xs font-semibold text-gray-500 mb-1">{p.categoria}</p>
+                      <p className="text-sm font-bold text-gray-900">{p.desconto}</p>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-4 md:mt-6 bg-[#065f46] rounded-2xl p-4 text-center">
+                  <p className="text-[#6ee7b7] text-xs font-semibold uppercase tracking-widest mb-1">Novos parceiros todo mês</p>
+                  <p className="text-white text-sm">Incluído em todos os planos</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Depoimentos */}
       <section className="py-16 md:py-28 px-4 md:px-6 bg-white">
         <div className="max-w-6xl mx-auto">
@@ -429,73 +496,6 @@ export default function App() {
           <button onClick={irParaCadastro} className="w-full sm:w-auto bg-white text-[#065f46] font-bold px-8 md:px-10 py-4 rounded-xl text-lg hover:bg-gray-50 transition-colors">
             Criar minha conta grátis
           </button>
-        </div>
-      </section>
-
-      {/* FisioFlow Club */}
-      <section className="py-16 md:py-28 px-4 md:px-6 bg-white">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-            <div>
-              <div className="inline-flex items-center gap-2 bg-[#ecfdf5] border border-[#6ee7b7] rounded-full px-4 py-2 mb-6">
-                <span className="text-[#065f46] text-sm font-semibold">Exclusivo para assinantes</span>
-              </div>
-              <h2 className="serif text-3xl md:text-4xl lg:text-5xl text-gray-900 mb-4 leading-tight">
-                FisioFlow <span className="italic text-[#065f46]">Club</span>
-              </h2>
-              <p className="text-gray-500 text-base md:text-lg leading-relaxed mb-6 md:mb-8">
-                Assinar o FisioFlow vai além do sistema. No Club você tem acesso a descontos exclusivos em fornecedores, equipamentos, cursos e eventos do setor — benefícios pensados para quem vive a fisioterapia todos os dias.
-              </p>
-              <div className="space-y-4 mb-6 md:mb-8">
-                {[
-                  { titulo: 'Descontos em fornecedores', desc: 'Equipamentos, materiais e insumos com condições especiais negociadas para assinantes.' },
-                  { titulo: 'Eventos e congressos', desc: 'Acesso antecipado e descontos em eventos, cursos e congressos de fisioterapia e pilates.' },
-                  { titulo: 'Comunidade exclusiva', desc: 'Troca de experiências com outros fisioterapeutas, dicas de gestão e novidades do setor.' },
-                  { titulo: 'Parceiros selecionados', desc: 'Plataformas, softwares e serviços complementares com benefícios exclusivos para clientes FisioFlow.' },
-                ].map((item, i) => (
-                  <div key={i} className="flex items-start gap-4">
-                    <div className="w-8 h-8 bg-[#ecfdf5] rounded-xl flex items-center justify-center text-[#065f46] shrink-0 mt-0.5">
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                      </svg>
-                    </div>
-                    <div>
-                      <p className="font-semibold text-gray-900 text-sm">{item.titulo}</p>
-                      <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <button onClick={irParaCadastro} className="w-full sm:w-auto bg-[#065f46] hover:bg-[#047857] text-white font-bold px-8 py-4 rounded-xl transition-all hover:shadow-lg hover:-translate-y-0.5">
-                Criar minha conta grátis
-              </button>
-            </div>
-            <div className="relative mt-2 lg:mt-0">
-              <div className="absolute inset-0 bg-gradient-to-br from-[#ecfdf5] to-[#d1fae5] rounded-3xl" />
-              <div className="relative p-6 md:p-8">
-                <p className="text-[#065f46] font-bold text-sm uppercase tracking-widest mb-4 md:mb-6">Parceiros do Club</p>
-                <div className="grid grid-cols-2 gap-3 md:gap-4">
-                  {[
-                    { categoria: 'Equipamentos', desconto: 'até 20% off', borda: '#6ee7b7' },
-                    { categoria: 'Cursos online', desconto: 'até 30% off', borda: '#93c5fd' },
-                    { categoria: 'Congressos', desconto: 'acesso VIP', borda: '#fcd34d' },
-                    { categoria: 'Softwares', desconto: 'planos especiais', borda: '#d8b4fe' },
-                    { categoria: 'Materiais', desconto: 'até 15% off', borda: '#6ee7b7' },
-                    { categoria: 'Eventos', desconto: 'desconto exclusivo', borda: '#fca5a5' },
-                  ].map((p, i) => (
-                    <div key={i} className="bg-white rounded-2xl p-3 md:p-4 border shadow-sm" style={{ borderColor: p.borda }}>
-                      <p className="text-xs font-semibold text-gray-500 mb-1">{p.categoria}</p>
-                      <p className="text-sm font-bold text-gray-900">{p.desconto}</p>
-                    </div>
-                  ))}
-                </div>
-                <div className="mt-4 md:mt-6 bg-[#065f46] rounded-2xl p-4 text-center">
-                  <p className="text-[#6ee7b7] text-xs font-semibold uppercase tracking-widest mb-1">Novos parceiros todo mês</p>
-                  <p className="text-white text-sm">Incluído em todos os planos</p>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 
