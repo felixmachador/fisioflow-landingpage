@@ -92,16 +92,7 @@ const plans = [
     preco_mensal: 127,
     preco_anual: 106,
     desc: 'Para fisioterapeutas autônomas',
-    features: [
-      '1 profissional',
-      'Até 80 pacientes',
-      'Agenda completa',
-      'Prontuário eletrônico',
-      'Financeiro básico',
-      'WhatsApp manual',
-      'IA Flora',
-      'Suporte por e-mail',
-    ],
+    features: ['1 profissional', 'Até 80 pacientes', 'Agenda completa', 'Prontuário eletrônico', 'Financeiro básico', 'WhatsApp manual', 'IA Flora', 'Suporte por e-mail'],
     destaque: false,
     cta: 'Começar grátis'
   },
@@ -110,16 +101,7 @@ const plans = [
     preco_mensal: 197,
     preco_anual: 164,
     desc: 'Para clínicas em crescimento',
-    features: [
-      'Até 5 profissionais',
-      'Pacientes ilimitados',
-      'Tudo do Solo',
-      'Turmas de Pilates',
-      'CRM de leads',
-      'Orçamentos PDF',
-      'WhatsApp automático',
-      'Dashboard avançado',
-    ],
+    features: ['Até 5 profissionais', 'Pacientes ilimitados', 'Tudo do Solo', 'Turmas de Pilates', 'CRM de leads', 'Orçamentos PDF', 'WhatsApp automático', 'Dashboard avançado'],
     destaque: true,
     cta: 'Começar grátis'
   },
@@ -128,16 +110,7 @@ const plans = [
     preco_mensal: 347,
     preco_anual: 289,
     desc: 'Para clínicas com equipe completa',
-    features: [
-      'Profissionais ilimitados',
-      'Pacientes ilimitados',
-      'Tudo do Equipe',
-      'Contratos PDF',
-      'Relatório de alta',
-      'Prognóstico por IA',
-      'Configuração assistida',
-      'Suporte por videochamada',
-    ],
+    features: ['Profissionais ilimitados', 'Pacientes ilimitados', 'Tudo do Equipe', 'Contratos PDF', 'Relatório de alta', 'Prognóstico por IA', 'Configuração assistida', 'Suporte por videochamada'],
     destaque: false,
     cta: 'Começar grátis'
   },
@@ -152,51 +125,33 @@ const faqs = [
   { q: 'Como funciona a configuração assistida do plano Clínica?', a: 'Nossa equipe agenda uma videochamada para configurar o sistema junto com você — importar pacientes, configurar agenda, WhatsApp e tudo mais. Você começa a usar no mesmo dia.' },
 ]
 
-// Mock de dashboard para hero
 function MockDashboard() {
   return (
     <div style={{ fontFamily: 'system-ui, sans-serif' }} className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-100 w-full">
-      {/* Header */}
       <div className="bg-[#065f46] px-4 py-3 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="w-2 h-2 rounded-full bg-white/40" />
           <span className="text-white/80 text-xs font-medium">FisioFlow</span>
         </div>
-        <div className="flex items-center gap-2">
-          <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center">
-            <div className="w-3 h-3 rounded-full bg-white/60" />
-          </div>
+        <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center">
+          <div className="w-3 h-3 rounded-full bg-white/60" />
         </div>
       </div>
-
-      {/* Content */}
       <div className="flex">
-        {/* Sidebar */}
         <div className="w-12 bg-gray-50 border-r border-gray-100 py-4 flex flex-col items-center gap-3">
           {['▦','◎','◈','$','★'].map((icon, i) => (
-            <div key={i} className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs ${i === 0 ? 'bg-[#065f46] text-white' : 'text-gray-400 hover:bg-gray-100'}`}>
-              {icon}
-            </div>
+            <div key={i} className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs ${i === 0 ? 'bg-[#065f46] text-white' : 'text-gray-400'}`}>{icon}</div>
           ))}
         </div>
-
-        {/* Main */}
         <div className="flex-1 p-4">
-          {/* Stats row */}
           <div className="grid grid-cols-3 gap-2 mb-4">
-            {[
-              { label: 'Pacientes', value: '47', color: '#065f46' },
-              { label: 'Este mês', value: 'R$8.4k', color: '#2563eb' },
-              { label: 'Confirmados', value: '12', color: '#d97706' },
-            ].map((s, i) => (
+            {[{ label: 'Pacientes', value: '47', color: '#065f46' }, { label: 'Este mês', value: 'R$8.4k', color: '#2563eb' }, { label: 'Confirmados', value: '12', color: '#d97706' }].map((s, i) => (
               <div key={i} className="bg-gray-50 rounded-xl p-3 border border-gray-100">
                 <p className="text-xs text-gray-400 mb-1">{s.label}</p>
                 <p className="text-sm font-bold" style={{ color: s.color }}>{s.value}</p>
               </div>
             ))}
           </div>
-
-          {/* Agenda */}
           <div className="bg-gray-50 rounded-xl p-3 border border-gray-100 mb-3">
             <p className="text-xs font-semibold text-gray-500 mb-2">Hoje — Segunda, 7 Abr</p>
             <div className="space-y-1.5">
@@ -214,8 +169,6 @@ function MockDashboard() {
               ))}
             </div>
           </div>
-
-          {/* Financeiro mini */}
           <div className="grid grid-cols-2 gap-2">
             <div className="bg-[#ecfdf5] rounded-xl p-3 border border-[#6ee7b7]/40">
               <p className="text-xs text-[#065f46]/60 mb-1">Recebido</p>
@@ -236,15 +189,10 @@ export default function App() {
   const [faqAberto, setFaqAberto] = useState(null)
   const [anual, setAnual] = useState(false)
 
-  const irParaCadastro = () => {
-    window.location.href = CADASTRO_URL
-  }
+  const irParaCadastro = () => { window.location.href = CADASTRO_URL }
 
   const BotaoPrimario = ({ className = '', texto = 'Criar minha conta grátis' }) => (
-    <button
-      onClick={irParaCadastro}
-      className={`bg-[#065f46] hover:bg-[#047857] text-white font-semibold rounded-xl transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 ${className}`}
-    >
+    <button onClick={irParaCadastro} className={`bg-[#065f46] hover:bg-[#047857] text-white font-semibold rounded-xl transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 ${className}`}>
       {texto}
     </button>
   )
@@ -258,50 +206,47 @@ export default function App() {
         .serif { font-family: 'DM Serif Display', Georgia, serif; }
       `}</style>
 
-      {/* Nav */}
+      {/* Nav — sem alterações desktop, ajuste mobile já estava ok */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-          <img src="/logo.png" alt="FisioFlow" className="h-14 w-auto object-contain" />
+        <div className="max-w-6xl mx-auto px-4 md:px-6 py-3 md:py-4 flex justify-between items-center">
+          <img src="/logo.png" alt="FisioFlow" className="h-10 md:h-14 w-auto object-contain" />
           <div className="hidden md:flex items-center gap-8">
             <a href="#funcionalidades" className="text-sm text-gray-500 hover:text-gray-900 transition-colors font-medium">Funcionalidades</a>
             <a href="#precos" className="text-sm text-gray-500 hover:text-gray-900 transition-colors font-medium">Preços</a>
             <a href="#faq" className="text-sm text-gray-500 hover:text-gray-900 transition-colors font-medium">FAQ</a>
             <BotaoPrimario className="text-sm px-5 py-2.5" />
           </div>
-          {/* Mobile CTA */}
           <BotaoPrimario className="md:hidden text-sm px-4 py-2" />
         </div>
       </nav>
 
       {/* Hero */}
-      <section className="min-h-screen flex items-center pt-24 pb-16 px-6 bg-gradient-to-br from-white via-[#f0fdf4] to-white overflow-hidden">
+      <section className="min-h-screen flex items-center pt-20 md:pt-24 pb-12 md:pb-16 px-4 md:px-6 bg-gradient-to-br from-white via-[#f0fdf4] to-white overflow-hidden">
         <div className="max-w-6xl mx-auto w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-
-            {/* Left */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             <div>
-              <div className="inline-flex items-center gap-2 bg-[#ecfdf5] border border-[#6ee7b7] rounded-full px-4 py-2 mb-8">
+              <div className="inline-flex items-center gap-2 bg-[#ecfdf5] border border-[#6ee7b7] rounded-full px-4 py-2 mb-6 md:mb-8">
                 <span className="w-2 h-2 bg-[#22c55e] rounded-full animate-pulse" />
                 <span className="text-[#065f46] text-sm font-semibold">7 dias grátis · Sem cartão</span>
               </div>
 
-              <h1 className="serif text-5xl md:text-6xl leading-[1.1] mb-6 text-gray-900">
+              {/* MOBILE: text-3xl | DESKTOP: text-5xl md:text-6xl */}
+              <h1 className="serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.1] mb-4 md:mb-6 text-gray-900">
                 Gestão completa para sua{' '}
                 <span className="italic text-[#065f46]">clínica de fisioterapia</span>
               </h1>
 
-              <p className="text-lg text-gray-500 mb-8 leading-relaxed max-w-lg">
+              <p className="text-base md:text-lg text-gray-500 mb-6 md:mb-8 leading-relaxed max-w-lg">
                 Agenda, prontuário, financeiro, pilates e WhatsApp automático. Tudo em um sistema feito por fisioterapeutas, para fisioterapeutas.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-3 mb-12">
-                <BotaoPrimario className="px-8 py-4 text-base" />
-                <a href="#funcionalidades" className="border border-gray-200 hover:border-gray-300 text-gray-700 font-medium px-8 py-4 rounded-xl text-base transition-colors text-center">
+              <div className="flex flex-col sm:flex-row gap-3 mb-8 md:mb-12">
+                <BotaoPrimario className="px-6 md:px-8 py-3.5 md:py-4 text-base w-full sm:w-auto text-center" />
+                <a href="#funcionalidades" className="border border-gray-200 hover:border-gray-300 text-gray-700 font-medium px-6 md:px-8 py-3.5 md:py-4 rounded-xl text-base transition-colors text-center">
                   Ver funcionalidades
                 </a>
               </div>
 
-              {/* Social proof */}
               <div className="flex items-center gap-4">
                 <div className="flex -space-x-2">
                   {['#065f46','#047857','#059669','#10b981'].map((c, i) => (
@@ -311,22 +256,16 @@ export default function App() {
                   ))}
                 </div>
                 <div>
-                  <div className="flex gap-0.5 mb-0.5">
-                    {[...Array(5)].map((_, i) => <span key={i} className="text-yellow-400 text-sm">★</span>)}
-                  </div>
+                  <div className="flex gap-0.5 mb-0.5">{[...Array(5)].map((_, i) => <span key={i} className="text-yellow-400 text-sm">★</span>)}</div>
                   <p className="text-xs text-gray-500">Usado por fisioterapeutas em todo o Brasil</p>
                 </div>
               </div>
             </div>
 
-            {/* Right — mockup */}
+            {/* Mockup — só desktop */}
             <div className="relative hidden lg:block">
-              {/* Decorative background */}
               <div className="absolute inset-0 bg-gradient-to-br from-[#ecfdf5] to-[#d1fae5] rounded-3xl -rotate-2 scale-105" />
-              <div className="relative">
-                <MockDashboard />
-              </div>
-              {/* Floating badges */}
+              <div className="relative"><MockDashboard /></div>
               <div className="absolute -left-8 top-1/3 bg-white rounded-2xl shadow-xl p-3 border border-gray-100 flex items-center gap-3">
                 <div className="w-8 h-8 bg-[#ecfdf5] rounded-xl flex items-center justify-center text-[#065f46] text-sm font-bold">47</div>
                 <div>
@@ -346,16 +285,16 @@ export default function App() {
         </div>
       </section>
 
-      {/* Stats bar */}
-      <section className="bg-[#065f46] py-10 px-6">
-        <div className="max-w-4xl mx-auto grid grid-cols-3 gap-8 text-center">
+      {/* Stats bar — MOBILE: 1 coluna empilhada, DESKTOP: 3 colunas */}
+      <section className="bg-[#065f46] py-8 md:py-10 px-4 md:px-6">
+        <div className="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 text-center">
           {[
             { valor: '100%', label: 'Online e seguro' },
             { valor: '7 dias', label: 'Grátis para testar' },
             { valor: 'Ilimitados', label: 'Pacientes no Equipe e Clínica' },
           ].map((s, i) => (
-            <div key={i}>
-              <p className="text-3xl font-bold text-white mb-1">{s.valor}</p>
+            <div key={i} className={i < 2 ? 'sm:border-0 border-b border-[#047857] pb-4 sm:pb-0' : ''}>
+              <p className="text-2xl md:text-3xl font-bold text-white mb-1">{s.valor}</p>
               <p className="text-[#6ee7b7] text-sm">{s.label}</p>
             </div>
           ))}
@@ -363,15 +302,16 @@ export default function App() {
       </section>
 
       {/* Funcionalidades */}
-      <section id="funcionalidades" className="py-28 px-6 bg-gray-50">
+      <section id="funcionalidades" className="py-16 md:py-28 px-4 md:px-6 bg-gray-50">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
+          <div className="text-center mb-10 md:mb-16">
             <p className="text-[#065f46] font-semibold text-sm uppercase tracking-widest mb-3">Funcionalidades</p>
-            <h2 className="serif text-4xl md:text-5xl text-gray-900 mb-4">Tudo que sua clínica precisa</h2>
-            <p className="text-gray-500 text-xl max-w-2xl mx-auto">Construído com fisioterapeutas, para fisioterapeutas. Cada detalhe pensado na sua rotina.</p>
+            {/* MOBILE: text-3xl | DESKTOP: text-4xl md:text-5xl */}
+            <h2 className="serif text-3xl md:text-4xl lg:text-5xl text-gray-900 mb-4">Tudo que sua clínica precisa</h2>
+            <p className="text-gray-500 text-base md:text-xl max-w-2xl mx-auto">Construído com fisioterapeutas, para fisioterapeutas. Cada detalhe pensado na sua rotina.</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-4">
             {features.map((f, i) => (
               <div key={i} className="bg-white border border-gray-100 rounded-2xl p-6 hover:border-[#6ee7b7] hover:shadow-md transition-all duration-200 group">
                 <div className="w-10 h-10 bg-[#ecfdf5] rounded-xl flex items-center justify-center text-[#065f46] mb-4 group-hover:bg-[#065f46] group-hover:text-white transition-colors duration-200">
@@ -384,19 +324,19 @@ export default function App() {
           </div>
 
           {/* IA destaque */}
-          <div className="bg-[#065f46] rounded-2xl p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-            <div className="flex items-start md:items-center gap-5">
-              <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center shrink-0">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-white">
+          <div className="bg-[#065f46] rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-5 md:gap-6">
+            <div className="flex items-start md:items-center gap-4 md:gap-5">
+              <div className="w-10 h-10 md:w-12 md:h-12 bg-white/10 rounded-xl flex items-center justify-center shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 md:w-6 md:h-6 text-white">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456Z" />
                 </svg>
               </div>
               <div>
-                <h3 className="text-lg font-bold text-white mb-1">Flora — Assistente de IA Integrada</h3>
+                <h3 className="text-base md:text-lg font-bold text-white mb-1">Flora — Assistente de IA Integrada</h3>
                 <p className="text-[#6ee7b7] text-sm max-w-lg">Pergunte sobre sua clínica, pacientes, agenda ou financeiro. A Flora responde com base nos seus dados reais e acelera sua rotina clínica.</p>
               </div>
             </div>
-            <button onClick={irParaCadastro} className="shrink-0 bg-white text-[#065f46] font-bold px-6 py-3 rounded-xl hover:bg-gray-50 transition-colors text-sm">
+            <button onClick={irParaCadastro} className="w-full md:w-auto shrink-0 bg-white text-[#065f46] font-bold px-6 py-3 rounded-xl hover:bg-gray-50 transition-colors text-sm">
               Conhecer a Flora
             </button>
           </div>
@@ -404,12 +344,12 @@ export default function App() {
       </section>
 
       {/* Depoimentos */}
-      <section className="py-28 px-6 bg-white">
+      <section className="py-16 md:py-28 px-4 md:px-6 bg-white">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
+          <div className="text-center mb-10 md:mb-16">
             <p className="text-[#065f46] font-semibold text-sm uppercase tracking-widest mb-3">Depoimentos</p>
-            <h2 className="serif text-4xl md:text-5xl text-gray-900 mb-4">Quem usa, aprova</h2>
-            <p className="text-gray-500 text-xl">Fisioterapeutas que transformaram sua gestão com o FisioFlow.</p>
+            <h2 className="serif text-3xl md:text-4xl lg:text-5xl text-gray-900 mb-4">Quem usa, aprova</h2>
+            <p className="text-gray-500 text-base md:text-xl">Fisioterapeutas que transformaram sua gestão com o FisioFlow.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
@@ -418,14 +358,10 @@ export default function App() {
               { nome: 'Mariana Souza', cargo: 'Fisioterapeuta — Atendimento domiciliar', texto: 'O prontuário eletrônico é completo e fácil de usar. Economizo pelo menos 20 minutos por dia que antes gastava preenchendo fichas em papel.' },
             ].map((d, i) => (
               <div key={i} className="bg-gray-50 border border-gray-100 rounded-2xl p-6 flex flex-col">
-                <div className="flex gap-0.5 mb-4">
-                  {[...Array(5)].map((_, j) => <span key={j} className="text-yellow-400">★</span>)}
-                </div>
+                <div className="flex gap-0.5 mb-4">{[...Array(5)].map((_, j) => <span key={j} className="text-yellow-400">★</span>)}</div>
                 <p className="text-gray-600 text-sm leading-relaxed mb-6 flex-1">"{d.texto}"</p>
                 <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-full bg-[#065f46] flex items-center justify-center text-white text-sm font-bold">
-                    {d.nome.charAt(0)}
-                  </div>
+                  <div className="w-9 h-9 rounded-full bg-[#065f46] flex items-center justify-center text-white text-sm font-bold">{d.nome.charAt(0)}</div>
                   <div>
                     <p className="font-semibold text-sm text-gray-900">{d.nome}</p>
                     <p className="text-gray-400 text-xs">{d.cargo}</p>
@@ -438,25 +374,15 @@ export default function App() {
       </section>
 
       {/* Preços */}
-      <section id="precos" className="py-28 px-6 bg-gray-50">
+      <section id="precos" className="py-16 md:py-28 px-4 md:px-6 bg-gray-50">
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
+          <div className="text-center mb-8 md:mb-12">
             <p className="text-[#065f46] font-semibold text-sm uppercase tracking-widest mb-3">Planos</p>
-            <h2 className="serif text-4xl md:text-5xl text-gray-900 mb-4">Simples e transparente</h2>
-            <p className="text-gray-500 text-xl mb-8">Sem taxas escondidas. Cancele quando quiser.</p>
-
-            {/* Toggle mensal/anual */}
+            <h2 className="serif text-3xl md:text-4xl lg:text-5xl text-gray-900 mb-4">Simples e transparente</h2>
+            <p className="text-gray-500 text-base md:text-xl mb-6 md:mb-8">Sem taxas escondidas. Cancele quando quiser.</p>
             <div className="inline-flex items-center gap-3 bg-white border border-gray-200 rounded-xl p-1.5">
-              <button
-                onClick={() => setAnual(false)}
-                className={`px-5 py-2 rounded-lg text-sm font-semibold transition-all ${!anual ? 'bg-[#065f46] text-white shadow' : 'text-gray-500 hover:text-gray-700'}`}
-              >
-                Mensal
-              </button>
-              <button
-                onClick={() => setAnual(true)}
-                className={`px-5 py-2 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 ${anual ? 'bg-[#065f46] text-white shadow' : 'text-gray-500 hover:text-gray-700'}`}
-              >
+              <button onClick={() => setAnual(false)} className={`px-4 md:px-5 py-2 rounded-lg text-sm font-semibold transition-all ${!anual ? 'bg-[#065f46] text-white shadow' : 'text-gray-500 hover:text-gray-700'}`}>Mensal</button>
+              <button onClick={() => setAnual(true)} className={`px-4 md:px-5 py-2 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 ${anual ? 'bg-[#065f46] text-white shadow' : 'text-gray-500 hover:text-gray-700'}`}>
                 Anual
                 <span className={`text-xs px-2 py-0.5 rounded-full font-bold ${anual ? 'bg-white/20 text-white' : 'bg-[#ecfdf5] text-[#065f46]'}`}>-17%</span>
               </button>
@@ -465,36 +391,26 @@ export default function App() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {plans.map((p, i) => (
-              <div key={i} className={`rounded-2xl p-8 border-2 relative flex flex-col ${p.destaque ? 'bg-[#065f46] border-[#065f46]' : 'bg-white border-gray-100'}`}>
+              <div key={i} className={`rounded-2xl p-6 md:p-8 border-2 relative flex flex-col ${p.destaque ? 'bg-[#065f46] border-[#065f46]' : 'bg-white border-gray-100'}`}>
                 {p.destaque && (
                   <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
                     <span className="bg-[#22c55e] text-white text-xs font-bold px-4 py-1.5 rounded-full shadow">MAIS POPULAR</span>
                   </div>
                 )}
-                <div className="mb-6">
+                <div className="mb-5 md:mb-6">
                   <h3 className={`text-xl font-bold mb-1 ${p.destaque ? 'text-white' : 'text-gray-900'}`}>{p.name}</h3>
                   <p className={`text-sm ${p.destaque ? 'text-[#6ee7b7]' : 'text-gray-400'}`}>{p.desc}</p>
                 </div>
-
-                <div className="mb-6">
+                <div className="mb-5 md:mb-6">
                   <div className="flex items-end gap-1">
-                    <span className={`text-4xl font-bold ${p.destaque ? 'text-white' : 'text-gray-900'}`}>
-                      R${anual ? p.preco_anual : p.preco_mensal}
-                    </span>
+                    <span className={`text-4xl font-bold ${p.destaque ? 'text-white' : 'text-gray-900'}`}>R${anual ? p.preco_anual : p.preco_mensal}</span>
                     <span className={`text-sm mb-1.5 ${p.destaque ? 'text-[#6ee7b7]' : 'text-gray-400'}`}>/mês</span>
                   </div>
-                  {anual && (
-                    <p className={`text-xs mt-1 ${p.destaque ? 'text-[#6ee7b7]' : 'text-[#065f46]'}`}>
-                      Cobrado anualmente · R${p.preco_anual * 12}/ano
-                    </p>
-                  )}
-                  {!anual && (
-                    <p className={`text-xs mt-1 ${p.destaque ? 'text-white/50' : 'text-gray-400'}`}>
-                      ou R${p.preco_anual}/mês no plano anual
-                    </p>
-                  )}
+                  {anual
+                    ? <p className={`text-xs mt-1 ${p.destaque ? 'text-[#6ee7b7]' : 'text-[#065f46]'}`}>Cobrado anualmente · R${p.preco_anual * 12}/ano</p>
+                    : <p className={`text-xs mt-1 ${p.destaque ? 'text-white/50' : 'text-gray-400'}`}>ou R${p.preco_anual}/mês no plano anual</p>
+                  }
                 </div>
-
                 <ul className="space-y-3 mb-8 flex-1">
                   {p.features.map((f, j) => (
                     <li key={j} className={`flex items-start gap-2.5 text-sm ${p.destaque ? 'text-white/90' : 'text-gray-600'}`}>
@@ -503,57 +419,45 @@ export default function App() {
                     </li>
                   ))}
                 </ul>
-
-                <button
-                  onClick={irParaCadastro}
-                  className={`w-full py-3.5 rounded-xl font-bold text-sm transition-all ${p.destaque ? 'bg-white text-[#065f46] hover:bg-gray-50' : 'bg-[#065f46] text-white hover:bg-[#047857]'}`}
-                >
+                <button onClick={irParaCadastro} className={`w-full py-3.5 rounded-xl font-bold text-sm transition-all ${p.destaque ? 'bg-white text-[#065f46] hover:bg-gray-50' : 'bg-[#065f46] text-white hover:bg-[#047857]'}`}>
                   {p.cta} — 7 dias grátis
                 </button>
               </div>
             ))}
           </div>
-
-          <p className="text-center text-gray-400 text-sm mt-8">Todos os planos incluem 7 dias de teste grátis. Sem cartão de crédito.</p>
+          <p className="text-center text-gray-400 text-sm mt-6 md:mt-8">Todos os planos incluem 7 dias de teste grátis. Sem cartão de crédito.</p>
         </div>
       </section>
 
       {/* CTA intermediário */}
-      <section className="py-20 px-6 bg-[#065f46]">
+      <section className="py-14 md:py-20 px-4 md:px-6 bg-[#065f46]">
         <div className="max-w-3xl mx-auto text-center">
-          <h2 className="serif text-4xl md:text-5xl text-white mb-4">
-            Pronta para organizar<br />
+          <h2 className="serif text-3xl md:text-4xl lg:text-5xl text-white mb-4">
+            Pronta para organizar{' '}
             <span className="italic">sua clínica de vez?</span>
           </h2>
-          <p className="text-[#6ee7b7] text-lg mb-8">7 dias grátis, sem cartão, sem compromisso.</p>
-          <button
-            onClick={irParaCadastro}
-            className="bg-white text-[#065f46] font-bold px-10 py-4 rounded-xl text-lg hover:bg-gray-50 transition-colors"
-          >
+          <p className="text-[#6ee7b7] text-base md:text-lg mb-6 md:mb-8">7 dias grátis, sem cartão, sem compromisso.</p>
+          <button onClick={irParaCadastro} className="w-full sm:w-auto bg-white text-[#065f46] font-bold px-8 md:px-10 py-4 rounded-xl text-lg hover:bg-gray-50 transition-colors">
             Criar minha conta grátis
           </button>
         </div>
       </section>
 
       {/* FisioFlow Club */}
-      <section className="py-28 px-6 bg-white">
+      <section className="py-16 md:py-28 px-4 md:px-6 bg-white">
         <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-
-            {/* Left */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             <div>
               <div className="inline-flex items-center gap-2 bg-[#ecfdf5] border border-[#6ee7b7] rounded-full px-4 py-2 mb-6">
                 <span className="text-[#065f46] text-sm font-semibold">Exclusivo para assinantes</span>
               </div>
-              <h2 className="serif text-4xl md:text-5xl text-gray-900 mb-4 leading-tight">
-                FisioFlow{' '}
-                <span className="italic text-[#065f46]">Club</span>
+              <h2 className="serif text-3xl md:text-4xl lg:text-5xl text-gray-900 mb-4 leading-tight">
+                FisioFlow <span className="italic text-[#065f46]">Club</span>
               </h2>
-              <p className="text-gray-500 text-lg leading-relaxed mb-8">
+              <p className="text-gray-500 text-base md:text-lg leading-relaxed mb-6 md:mb-8">
                 Assinar o FisioFlow vai além do sistema. No Club você tem acesso a descontos exclusivos em fornecedores, equipamentos, cursos e eventos do setor — benefícios pensados para quem vive a fisioterapia todos os dias.
               </p>
-
-              <div className="space-y-4 mb-8">
+              <div className="space-y-4 mb-6 md:mb-8">
                 {[
                   { titulo: 'Descontos em fornecedores', desc: 'Equipamentos, materiais e insumos com condições especiais negociadas para assinantes.' },
                   { titulo: 'Eventos e congressos', desc: 'Acesso antecipado e descontos em eventos, cursos e congressos de fisioterapia e pilates.' },
@@ -573,36 +477,32 @@ export default function App() {
                   </div>
                 ))}
               </div>
-
-              <button
-                onClick={irParaCadastro}
-                className="bg-[#065f46] hover:bg-[#047857] text-white font-bold px-8 py-4 rounded-xl transition-all hover:shadow-lg hover:-translate-y-0.5"
-              >
+              <button onClick={irParaCadastro} className="w-full sm:w-auto bg-[#065f46] hover:bg-[#047857] text-white font-bold px-8 py-4 rounded-xl transition-all hover:shadow-lg hover:-translate-y-0.5">
                 Criar minha conta grátis
               </button>
             </div>
 
-            {/* Right — visual do Club */}
-            <div className="relative">
+            {/* Visual do Club — aparece em mobile também, mas simplificado */}
+            <div className="relative mt-2 lg:mt-0">
               <div className="absolute inset-0 bg-gradient-to-br from-[#ecfdf5] to-[#d1fae5] rounded-3xl" />
-              <div className="relative p-8">
-                <p className="text-[#065f46] font-bold text-sm uppercase tracking-widest mb-6">Parceiros do Club</p>
-                <div className="grid grid-cols-2 gap-4">
+              <div className="relative p-6 md:p-8">
+                <p className="text-[#065f46] font-bold text-sm uppercase tracking-widest mb-4 md:mb-6">Parceiros do Club</p>
+                <div className="grid grid-cols-2 gap-3 md:gap-4">
                   {[
-                    { categoria: 'Equipamentos', desconto: 'até 20% off', cor: '#ecfdf5', borda: '#6ee7b7' },
-                    { categoria: 'Cursos online', desconto: 'até 30% off', cor: '#eff6ff', borda: '#93c5fd' },
-                    { categoria: 'Congressos', desconto: 'acesso VIP', cor: '#fff7ed', borda: '#fcd34d' },
-                    { categoria: 'Softwares', desconto: 'planos especiais', cor: '#fdf4ff', borda: '#d8b4fe' },
-                    { categoria: 'Materiais', desconto: 'até 15% off', cor: '#ecfdf5', borda: '#6ee7b7' },
-                    { categoria: 'Eventos', desconto: 'desconto exclusivo', cor: '#fff1f2', borda: '#fca5a5' },
+                    { categoria: 'Equipamentos', desconto: 'até 20% off', borda: '#6ee7b7' },
+                    { categoria: 'Cursos online', desconto: 'até 30% off', borda: '#93c5fd' },
+                    { categoria: 'Congressos', desconto: 'acesso VIP', borda: '#fcd34d' },
+                    { categoria: 'Softwares', desconto: 'planos especiais', borda: '#d8b4fe' },
+                    { categoria: 'Materiais', desconto: 'até 15% off', borda: '#6ee7b7' },
+                    { categoria: 'Eventos', desconto: 'desconto exclusivo', borda: '#fca5a5' },
                   ].map((p, i) => (
-                    <div key={i} className="bg-white rounded-2xl p-4 border shadow-sm" style={{ borderColor: p.borda }}>
+                    <div key={i} className="bg-white rounded-2xl p-3 md:p-4 border shadow-sm" style={{ borderColor: p.borda }}>
                       <p className="text-xs font-semibold text-gray-500 mb-1">{p.categoria}</p>
                       <p className="text-sm font-bold text-gray-900">{p.desconto}</p>
                     </div>
                   ))}
                 </div>
-                <div className="mt-6 bg-[#065f46] rounded-2xl p-4 text-center">
+                <div className="mt-4 md:mt-6 bg-[#065f46] rounded-2xl p-4 text-center">
                   <p className="text-[#6ee7b7] text-xs font-semibold uppercase tracking-widest mb-1">Novos parceiros todo mês</p>
                   <p className="text-white text-sm">Incluído em todos os planos</p>
                 </div>
@@ -613,25 +513,22 @@ export default function App() {
       </section>
 
       {/* FAQ */}
-      <section id="faq" className="py-28 px-6 bg-white">
+      <section id="faq" className="py-16 md:py-28 px-4 md:px-6 bg-white">
         <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-16">
+          <div className="text-center mb-10 md:mb-16">
             <p className="text-[#065f46] font-semibold text-sm uppercase tracking-widest mb-3">FAQ</p>
-            <h2 className="serif text-4xl md:text-5xl text-gray-900 mb-4">Perguntas frequentes</h2>
-            <p className="text-gray-500 text-xl">Tudo que você precisa saber antes de começar.</p>
+            <h2 className="serif text-3xl md:text-4xl lg:text-5xl text-gray-900 mb-4">Perguntas frequentes</h2>
+            <p className="text-gray-500 text-base md:text-xl">Tudo que você precisa saber antes de começar.</p>
           </div>
           <div className="space-y-3">
             {faqs.map((f, i) => (
               <div key={i} className="border border-gray-100 rounded-2xl overflow-hidden bg-gray-50">
-                <button
-                  onClick={() => setFaqAberto(faqAberto === i ? null : i)}
-                  className="w-full flex justify-between items-center px-6 py-5 text-left hover:bg-gray-100 transition-colors"
-                >
+                <button onClick={() => setFaqAberto(faqAberto === i ? null : i)} className="w-full flex justify-between items-center px-5 md:px-6 py-4 md:py-5 text-left hover:bg-gray-100 transition-colors gap-4">
                   <span className="font-semibold text-gray-900 text-sm">{f.q}</span>
-                  <span className={`text-[#065f46] text-xl font-light transition-transform duration-200 ${faqAberto === i ? 'rotate-45' : ''}`}>+</span>
+                  <span className={`text-[#065f46] text-xl font-light transition-transform duration-200 shrink-0 ${faqAberto === i ? 'rotate-45' : ''}`}>+</span>
                 </button>
                 {faqAberto === i && (
-                  <div className="px-6 pb-5">
+                  <div className="px-5 md:px-6 pb-4 md:pb-5">
                     <p className="text-gray-500 text-sm leading-relaxed">{f.a}</p>
                   </div>
                 )}
@@ -642,18 +539,16 @@ export default function App() {
       </section>
 
       {/* CTA Final */}
-      <section className="py-28 px-6 bg-gray-50">
+      <section className="py-16 md:py-28 px-4 md:px-6 bg-gray-50">
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-[#065f46] font-semibold text-sm uppercase tracking-widest mb-4">Comece hoje</p>
-          <h2 className="serif text-5xl md:text-6xl text-gray-900 mb-6 leading-tight">
+          {/* MOBILE: text-3xl | DESKTOP: text-5xl md:text-6xl */}
+          <h2 className="serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-gray-900 mb-5 md:mb-6 leading-tight">
             Sua clínica merece uma{' '}
             <span className="italic text-[#065f46]">gestão à altura</span>
           </h2>
-          <p className="text-gray-500 text-xl mb-10">Junte-se às fisioterapeutas que já organizam sua clínica com o FisioFlow.</p>
-          <button
-            onClick={irParaCadastro}
-            className="bg-[#065f46] hover:bg-[#047857] text-white font-bold px-12 py-5 rounded-xl text-xl transition-all hover:shadow-xl hover:-translate-y-0.5"
-          >
+          <p className="text-gray-500 text-base md:text-xl mb-8 md:mb-10">Junte-se às fisioterapeutas que já organizam sua clínica com o FisioFlow.</p>
+          <button onClick={irParaCadastro} className="w-full sm:w-auto bg-[#065f46] hover:bg-[#047857] text-white font-bold px-8 md:px-12 py-4 md:py-5 rounded-xl text-lg md:text-xl transition-all hover:shadow-xl hover:-translate-y-0.5">
             Criar minha conta grátis
           </button>
           <p className="text-gray-400 text-sm mt-4">7 dias grátis · Sem cartão · Cancele quando quiser</p>
@@ -661,8 +556,8 @@ export default function App() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-gray-100 py-12 px-6 bg-white">
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+      <footer className="border-t border-gray-100 py-10 md:py-12 px-4 md:px-6 bg-white">
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
           <img src="/logo.png" alt="FisioFlow" className="h-8 w-auto object-contain" />
           <p className="text-gray-400 text-sm">© 2026 FisioFlow. Todos os direitos reservados.</p>
           <div className="flex gap-6">
