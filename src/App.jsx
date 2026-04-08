@@ -261,7 +261,7 @@ export default function App() {
       {/* Nav */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100">
         <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-          <img src="/logo.png" alt="FisioFlow" className="h-10 w-auto object-contain" />
+          <img src="/logo.png" alt="FisioFlow" className="h-14 w-auto object-contain" />
           <div className="hidden md:flex items-center gap-8">
             <a href="#funcionalidades" className="text-sm text-gray-500 hover:text-gray-900 transition-colors font-medium">Funcionalidades</a>
             <a href="#precos" className="text-sm text-gray-500 hover:text-gray-900 transition-colors font-medium">Preços</a>
@@ -532,6 +532,83 @@ export default function App() {
           >
             Criar minha conta grátis
           </button>
+        </div>
+      </section>
+
+      {/* FisioFlow Club */}
+      <section className="py-28 px-6 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+            {/* Left */}
+            <div>
+              <div className="inline-flex items-center gap-2 bg-[#ecfdf5] border border-[#6ee7b7] rounded-full px-4 py-2 mb-6">
+                <span className="text-[#065f46] text-sm font-semibold">Exclusivo para assinantes</span>
+              </div>
+              <h2 className="serif text-4xl md:text-5xl text-gray-900 mb-4 leading-tight">
+                FisioFlow{' '}
+                <span className="italic text-[#065f46]">Club</span>
+              </h2>
+              <p className="text-gray-500 text-lg leading-relaxed mb-8">
+                Assinar o FisioFlow vai além do sistema. No Club você tem acesso a descontos exclusivos em fornecedores, equipamentos, cursos e eventos do setor — benefícios pensados para quem vive a fisioterapia todos os dias.
+              </p>
+
+              <div className="space-y-4 mb-8">
+                {[
+                  { titulo: 'Descontos em fornecedores', desc: 'Equipamentos, materiais e insumos com condições especiais negociadas para assinantes.' },
+                  { titulo: 'Eventos e congressos', desc: 'Acesso antecipado e descontos em eventos, cursos e congressos de fisioterapia e pilates.' },
+                  { titulo: 'Comunidade exclusiva', desc: 'Troca de experiências com outros fisioterapeutas, dicas de gestão e novidades do setor.' },
+                  { titulo: 'Parceiros selecionados', desc: 'Plataformas, softwares e serviços complementares com benefícios exclusivos para clientes FisioFlow.' },
+                ].map((item, i) => (
+                  <div key={i} className="flex items-start gap-4">
+                    <div className="w-8 h-8 bg-[#ecfdf5] rounded-xl flex items-center justify-center text-[#065f46] shrink-0 mt-0.5">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-gray-900 text-sm">{item.titulo}</p>
+                      <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <button
+                onClick={irParaCadastro}
+                className="bg-[#065f46] hover:bg-[#047857] text-white font-bold px-8 py-4 rounded-xl transition-all hover:shadow-lg hover:-translate-y-0.5"
+              >
+                Criar minha conta grátis
+              </button>
+            </div>
+
+            {/* Right — visual do Club */}
+            <div className="relative">
+              <div className="absolute inset-0 bg-gradient-to-br from-[#ecfdf5] to-[#d1fae5] rounded-3xl" />
+              <div className="relative p-8">
+                <p className="text-[#065f46] font-bold text-sm uppercase tracking-widest mb-6">Parceiros do Club</p>
+                <div className="grid grid-cols-2 gap-4">
+                  {[
+                    { categoria: 'Equipamentos', desconto: 'até 20% off', cor: '#ecfdf5', borda: '#6ee7b7' },
+                    { categoria: 'Cursos online', desconto: 'até 30% off', cor: '#eff6ff', borda: '#93c5fd' },
+                    { categoria: 'Congressos', desconto: 'acesso VIP', cor: '#fff7ed', borda: '#fcd34d' },
+                    { categoria: 'Softwares', desconto: 'planos especiais', cor: '#fdf4ff', borda: '#d8b4fe' },
+                    { categoria: 'Materiais', desconto: 'até 15% off', cor: '#ecfdf5', borda: '#6ee7b7' },
+                    { categoria: 'Eventos', desconto: 'desconto exclusivo', cor: '#fff1f2', borda: '#fca5a5' },
+                  ].map((p, i) => (
+                    <div key={i} className="bg-white rounded-2xl p-4 border shadow-sm" style={{ borderColor: p.borda }}>
+                      <p className="text-xs font-semibold text-gray-500 mb-1">{p.categoria}</p>
+                      <p className="text-sm font-bold text-gray-900">{p.desconto}</p>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-6 bg-[#065f46] rounded-2xl p-4 text-center">
+                  <p className="text-[#6ee7b7] text-xs font-semibold uppercase tracking-widest mb-1">Novos parceiros todo mês</p>
+                  <p className="text-white text-sm">Incluído em todos os planos</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
