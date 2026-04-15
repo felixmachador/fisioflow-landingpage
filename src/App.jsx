@@ -333,6 +333,152 @@ export default function App() {
         </div>
       </section>
 
+      {/* Corpo 3D */}
+      <section className="py-16 md:py-28 px-4 md:px-6 bg-white overflow-hidden">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+            {/* Visual */}
+            <div className="relative order-2 lg:order-1">
+              <div className="absolute inset-0 bg-gradient-to-br from-[#ecfdf5] to-[#d1fae5] rounded-3xl" />
+              <div className="relative p-8 md:p-12 flex flex-col items-center justify-center min-h-[340px]">
+                {/* Boneco SVG ilustrativo */}
+                <svg viewBox="0 0 180 320" className="w-36 md:w-44 drop-shadow-xl" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  {/* Cabeça */}
+                  <ellipse cx="90" cy="34" rx="22" ry="24" fill="#d4a882" />
+                  {/* Pescoço */}
+                  <rect x="82" y="56" width="16" height="14" rx="4" fill="#c49472" />
+                  {/* Tronco */}
+                  <rect x="58" y="68" width="64" height="80" rx="14" fill="#d4a882" />
+                  {/* Braço esq */}
+                  <rect x="28" y="72" width="28" height="14" rx="7" fill="#c49472" transform="rotate(12 28 72)" />
+                  <rect x="16" y="108" width="26" height="12" rx="6" fill="#c49472" transform="rotate(6 16 108)" />
+                  {/* Braço dir */}
+                  <rect x="124" y="72" width="28" height="14" rx="7" fill="#c49472" transform="rotate(-12 152 72)" />
+                  <rect x="138" y="108" width="26" height="12" rx="6" fill="#c49472" transform="rotate(-6 164 108)" />
+                  {/* Pelve */}
+                  <rect x="62" y="144" width="56" height="26" rx="10" fill="#c49472" />
+                  {/* Perna esq */}
+                  <rect x="64" y="166" width="24" height="72" rx="12" fill="#d4a882" />
+                  <rect x="66" y="234" width="22" height="52" rx="11" fill="#c49472" />
+                  {/* Perna dir */}
+                  <rect x="92" y="166" width="24" height="72" rx="12" fill="#d4a882" />
+                  <rect x="92" y="234" width="22" height="52" rx="11" fill="#c49472" />
+                  {/* Ponto de dor — joelho esq */}
+                  <circle cx="76" cy="238" r="10" fill="#ef4444" opacity="0.85" />
+                  <circle cx="76" cy="238" r="5" fill="#fff" opacity="0.6" />
+                  {/* Ponto de dor — lombar */}
+                  <circle cx="90" cy="136" r="9" fill="#f59e0b" opacity="0.85" />
+                  <circle cx="90" cy="136" r="4" fill="#fff" opacity="0.6" />
+                </svg>
+                {/* Badges flutuantes */}
+                <div className="absolute top-6 right-6 bg-white rounded-2xl shadow-lg px-3 py-2 border border-gray-100">
+                  <p className="text-xs font-bold text-red-500">Joelho esquerdo</p>
+                  <p className="text-xs text-gray-400">Dor: 8/10</p>
+                </div>
+                <div className="absolute bottom-10 left-6 bg-white rounded-2xl shadow-lg px-3 py-2 border border-gray-100">
+                  <p className="text-xs font-bold text-yellow-500">Lombar</p>
+                  <p className="text-xs text-gray-400">Dor: 5/10</p>
+                </div>
+                <div className="absolute bottom-6 right-6 bg-[#065f46] rounded-2xl shadow-lg px-3 py-2">
+                  <p className="text-xs font-bold text-white">2 regiões marcadas</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Texto */}
+            <div className="order-1 lg:order-2">
+              <div className="inline-flex items-center gap-2 bg-[#ecfdf5] border border-[#6ee7b7] rounded-full px-4 py-2 mb-6">
+                <span className="text-[#065f46] text-sm font-semibold">Exclusivo FisioFlow</span>
+              </div>
+              <h2 className="serif text-3xl md:text-4xl lg:text-5xl text-gray-900 mb-4 leading-tight">
+                Mostre exatamente{' '}
+                <span className="italic text-[#065f46]">onde dói</span>
+              </h2>
+              <p className="text-gray-500 text-base md:text-lg leading-relaxed mb-6 md:mb-8">
+                Chega de anotar "dor no joelho" num campo de texto. O FisioFlow tem um corpo humano 3D interativo no prontuário — o fisioterapeuta gira o modelo, clica na região exata e define a intensidade da dor com um slider.
+              </p>
+              <div className="space-y-4 mb-8">
+                {[
+                  { titulo: 'Modelo feminino e masculino', desc: 'Carregado automaticamente pelo sexo cadastrado do paciente.' },
+                  { titulo: 'Múltiplas regiões', desc: 'Marque quantas regiões quiser, cada uma com sua intensidade de dor.' },
+                  { titulo: 'Integrado ao prontuário', desc: 'As regiões marcadas ficam salvas diretamente na ficha clínica.' },
+                ].map((item, i) => (
+                  <div key={i} className="flex items-start gap-4">
+                    <div className="w-8 h-8 bg-[#ecfdf5] rounded-xl flex items-center justify-center text-[#065f46] shrink-0 mt-0.5">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-gray-900 text-sm">{item.titulo}</p>
+                      <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <p className="text-xs text-gray-400 italic">Nenhum outro sistema de fisioterapia no Brasil tem esse recurso.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Corpo 3D */}
+      <section className="py-16 md:py-28 px-4 md:px-6 bg-white overflow-hidden">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+            {/* Vídeo */}
+            <div className="relative order-2 lg:order-1">
+              <div className="absolute inset-0 bg-gradient-to-br from-[#ecfdf5] to-[#d1fae5] rounded-3xl" />
+              <div className="relative p-4 md:p-6">
+                <video
+                  src="/body3d.mp4"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full rounded-2xl shadow-xl"
+                  style={{ maxHeight: 420, objectFit: 'cover' }}
+                />
+              </div>
+            </div>
+
+            {/* Texto */}
+            <div className="order-1 lg:order-2">
+              <div className="inline-flex items-center gap-2 bg-[#ecfdf5] border border-[#6ee7b7] rounded-full px-4 py-2 mb-6">
+                <span className="text-[#065f46] text-sm font-semibold">Exclusivo FisioFlow</span>
+              </div>
+              <h2 className="serif text-3xl md:text-4xl lg:text-5xl text-gray-900 mb-4 leading-tight">
+                Mostre exatamente{' '}
+                <span className="italic text-[#065f46]">onde dói</span>
+              </h2>
+              <p className="text-gray-500 text-base md:text-lg leading-relaxed mb-6 md:mb-8">
+                Chega de anotar "dor no joelho" num campo de texto. O FisioFlow tem um corpo humano 3D interativo no prontuário — o fisioterapeuta gira o modelo, clica na região exata e define a intensidade da dor com um slider.
+              </p>
+              <div className="space-y-4 mb-8">
+                {[
+                  { titulo: 'Modelo feminino e masculino', desc: 'Carregado automaticamente pelo sexo cadastrado do paciente.' },
+                  { titulo: 'Múltiplas regiões', desc: 'Marque quantas regiões quiser, cada uma com sua intensidade de dor.' },
+                  { titulo: 'Integrado ao prontuário', desc: 'As regiões marcadas ficam salvas diretamente na ficha clínica.' },
+                ].map((item, i) => (
+                  <div key={i} className="flex items-start gap-4">
+                    <div className="w-8 h-8 bg-[#ecfdf5] rounded-xl flex items-center justify-center text-[#065f46] shrink-0 mt-0.5">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-gray-900 text-sm">{item.titulo}</p>
+                      <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <p className="text-xs text-gray-400 italic">Nenhum outro sistema de fisioterapia no Brasil tem esse recurso.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* FisioFlow Club */}
       <section className="py-16 md:py-28 px-4 md:px-6 bg-white">
         <div className="max-w-6xl mx-auto">
