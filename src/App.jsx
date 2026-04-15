@@ -295,7 +295,7 @@ export default function App() {
       </section>
 
       {/* Funcionalidades */}
-      <section id="funcionalidades" className="py-16 md:py-28 px-4 md:px-6 bg-gray-50">
+      <section id="funcionalidades" className="py-10 md:py-16 px-4 md:px-6 bg-gray-50">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-10 md:mb-16">
             <p className="text-[#065f46] font-semibold text-sm uppercase tracking-widest mb-3">Funcionalidades</p>
@@ -334,7 +334,7 @@ export default function App() {
       </section>
 
       {/* Corpo 3D */}
-      <section className="py-16 md:py-28 px-4 md:px-6 bg-white overflow-hidden">
+      <section className="py-10 md:py-16 px-4 md:px-6 bg-white overflow-hidden">
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             {/* Vídeo */}
@@ -391,7 +391,7 @@ export default function App() {
       </section>
 
       {/* FisioFlow Club */}
-      <section className="py-16 md:py-28 px-4 md:px-6 bg-white">
+      <section className="py-10 md:py-16 px-4 md:px-6 bg-white">
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             <div>
@@ -458,7 +458,7 @@ export default function App() {
       </section>
 
       {/* Depoimentos */}
-      <section className="py-16 md:py-28 px-4 md:px-6 bg-white">
+      <section className="py-10 md:py-16 px-4 md:px-6 bg-white">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-10 md:mb-16">
             <p className="text-[#065f46] font-semibold text-sm uppercase tracking-widest mb-3">Depoimentos</p>
@@ -488,7 +488,7 @@ export default function App() {
       </section>
 
       {/* Preços */}
-      <section id="precos" className="py-16 md:py-28 px-4 md:px-6 bg-gray-50">
+      <section id="precos" className="py-10 md:py-16 px-4 md:px-6 bg-gray-50">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-8 md:mb-12">
             <p className="text-[#065f46] font-semibold text-sm uppercase tracking-widest mb-3">Planos</p>
@@ -543,7 +543,7 @@ export default function App() {
       </section>
 
       {/* CTA intermediário */}
-      <section className="py-14 md:py-20 px-4 md:px-6 bg-[#065f46]">
+      <section className="py-10 md:py-14 px-4 md:px-6 bg-[#065f46]">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="serif text-3xl md:text-4xl lg:text-5xl text-white mb-4">
             Pronta para organizar{' '}
@@ -557,7 +557,7 @@ export default function App() {
       </section>
 
       {/* FAQ */}
-      <section id="faq" className="py-16 md:py-28 px-4 md:px-6 bg-white">
+      <section id="faq" className="py-10 md:py-16 px-4 md:px-6 bg-white">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-10 md:mb-16">
             <p className="text-[#065f46] font-semibold text-sm uppercase tracking-widest mb-3">FAQ</p>
@@ -583,7 +583,7 @@ export default function App() {
       </section>
 
       {/* CTA Final */}
-      <section className="py-16 md:py-28 px-4 md:px-6 bg-gray-50">
+      <section className="py-10 md:py-16 px-4 md:px-6 bg-gray-50">
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-[#065f46] font-semibold text-sm uppercase tracking-widest mb-4">Comece hoje</p>
           <h2 className="serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-gray-900 mb-5 md:mb-6 leading-tight">
