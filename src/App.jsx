@@ -495,38 +495,66 @@ export default function App() {
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#ecfdf5] to-[#d1fae5] rounded-3xl scale-110" />
                 <div className="relative p-8 md:p-12">
-                  <div className="w-52 mx-auto bg-gray-900 rounded-[2.5rem] p-2 shadow-2xl">
-                    <div className="bg-white rounded-[2rem] overflow-hidden">
-                      <div className="bg-[#065f46] px-4 py-2.5 flex items-center justify-between">
-                        <span className="text-white/70 text-[9px] font-medium">FisioFlow</span>
-                        <div className="flex gap-1">
-                          <div className="w-1.5 h-1.5 rounded-full bg-white/40" />
-                          <div className="w-1.5 h-1.5 rounded-full bg-white/40" />
+                  {/* botões laterais */}
+                  <div className="absolute left-[18px] top-[108px] w-[3px] h-7 bg-gray-700 rounded-full" />
+                  <div className="absolute left-[18px] top-[148px] w-[3px] h-10 bg-gray-700 rounded-full" />
+                  <div className="absolute left-[18px] top-[196px] w-[3px] h-10 bg-gray-700 rounded-full" />
+                  <div className="absolute right-[18px] top-[148px] w-[3px] h-14 bg-gray-700 rounded-full" />
+                  <div className="w-[200px] mx-auto bg-gray-900 rounded-[2.8rem] p-[3px] shadow-2xl" style={{ boxShadow: '0 30px 70px rgba(0,0,0,0.45)' }}>
+                    <div className="relative">
+                      {/* dynamic island */}
+                      <div className="absolute top-[10px] left-1/2 -translate-x-1/2 w-[56px] h-[18px] bg-gray-900 rounded-full z-20" />
+                      <div className="bg-white rounded-[2.6rem] overflow-hidden flex flex-col" style={{ height: 420 }}>
+                        {/* status bar */}
+                        <div className="bg-[#065f46] px-5 pt-9 pb-2 flex items-center justify-between shrink-0">
+                          <span className="text-white/70 text-[9px] font-medium">9:41</span>
+                          <div className="flex items-center gap-1">
+                            <svg viewBox="0 0 24 24" fill="currentColor" className="w-2.5 h-2.5 text-white/60"><path d="M1.5 8.25a.75.75 0 0 1 .75-.75h19.5a.75.75 0 0 1 0 1.5H2.25a.75.75 0 0 1-.75-.75ZM1.5 12a.75.75 0 0 1 .75-.75h19.5a.75.75 0 0 1 0 1.5H2.25A.75.75 0 0 1 1.5 12Zm0 3.75a.75.75 0 0 1 .75-.75h19.5a.75.75 0 0 1 0 1.5H2.25a.75.75 0 0 1-.75-.75Z"/></svg>
+                            <svg viewBox="0 0 24 24" fill="currentColor" className="w-2.5 h-2.5 text-white/60"><path fillRule="evenodd" d="M1.371 8.143c5.858-5.857 15.356-5.857 21.213 0a.75.75 0 0 1 0 1.061l-.53.53a.75.75 0 0 1-1.06 0C16.22 5.06 7.78 5.06 3.006 9.734a.75.75 0 0 1-1.06 0l-.53-.53a.75.75 0 0 1-.046-1.062Zm3.182 3.182c4.09-4.09 10.724-4.09 14.814 0a.75.75 0 0 1 0 1.061l-.53.53a.75.75 0 0 1-1.06 0 8.25 8.25 0 0 0-11.667 0 .75.75 0 0 1-1.06 0l-.53-.53a.75.75 0 0 1 0-1.06Zm3.204 3.204a6 6 0 0 1 8.486 0 .75.75 0 0 1 0 1.061l-.53.53a.75.75 0 0 1-1.061 0 3.75 3.75 0 0 0-5.304 0 .75.75 0 0 1-1.06 0l-.53-.53a.75.75 0 0 1 0-1.06Zm3.182 3.182a3 3 0 0 1 2.122.879.75.75 0 0 1 0 1.06l-.53.53a.75.75 0 0 1-1.061 0 .75.75 0 0 0-1.061 0 .75.75 0 0 1-1.06 0l-.53-.53a.75.75 0 0 1 0-1.06 3 3 0 0 1 2.12-.879Z" clipRule="evenodd"/></svg>
+                            <svg viewBox="0 0 24 24" fill="currentColor" className="w-3 h-2.5 text-white/60"><path d="M6 12a.75.75 0 0 1-.75-.75v-7.5a.75.75 0 0 1 1.5 0v7.5A.75.75 0 0 1 6 12ZM10.5 12a.75.75 0 0 1-.75-.75v-11.5a.75.75 0 0 1 1.5 0v11.5a.75.75 0 0 1-.75.75ZM15 12a.75.75 0 0 1-.75-.75v-8.5a.75.75 0 0 1 1.5 0v8.5A.75.75 0 0 1 15 12ZM19.5 12a.75.75 0 0 1-.75-.75V4.5a.75.75 0 0 1 1.5 0v6.75a.75.75 0 0 1-.75.75Z"/></svg>
+                          </div>
                         </div>
-                      </div>
-                      <div className="p-3">
-                        <p className="text-[9px] font-semibold text-gray-500 mb-2">Hoje — Segunda, 7 Abr</p>
-                        <div className="space-y-1.5 mb-3">
-                          {[
-                            { hora: '08:00', nome: 'Maria Silva', cor: '#ecfdf5', borda: '#6ee7b7' },
-                            { hora: '09:00', nome: 'Turma Pilates A', cor: '#eff6ff', borda: '#93c5fd' },
-                            { hora: '10:30', nome: 'Ana Costa', cor: '#fff7ed', borda: '#fcd34d' },
-                          ].map((a, i) => (
-                            <div key={i} className="flex items-center gap-1.5 rounded px-1.5 py-1 border" style={{ background: a.cor, borderColor: a.borda }}>
-                              <span className="text-[9px] font-mono text-gray-400 w-8 shrink-0">{a.hora}</span>
-                              <span className="text-[9px] font-semibold text-gray-700">{a.nome}</span>
+                        {/* content */}
+                        <div className="flex-1 overflow-hidden p-3">
+                          <p className="text-[9px] font-semibold text-gray-500 mb-2">Hoje — Segunda, 7 Abr</p>
+                          <div className="space-y-1.5 mb-3">
+                            {[
+                              { hora: '08:00', nome: 'Maria Silva', cor: '#ecfdf5', borda: '#6ee7b7' },
+                              { hora: '09:00', nome: 'Turma Pilates A', cor: '#eff6ff', borda: '#93c5fd' },
+                              { hora: '10:30', nome: 'Ana Costa', cor: '#fff7ed', borda: '#fcd34d' },
+                            ].map((a, i) => (
+                              <div key={i} className="flex items-center gap-1.5 rounded px-1.5 py-1 border" style={{ background: a.cor, borderColor: a.borda }}>
+                                <span className="text-[9px] font-mono text-gray-400 w-8 shrink-0">{a.hora}</span>
+                                <span className="text-[9px] font-semibold text-gray-700">{a.nome}</span>
+                              </div>
+                            ))}
+                          </div>
+                          <div className="grid grid-cols-2 gap-1.5 mb-3">
+                            <div className="bg-[#ecfdf5] rounded-lg p-2 border border-[#6ee7b7]/40">
+                              <p className="text-[8px] text-[#065f46]/60 mb-0.5">Recebido</p>
+                              <p className="text-[10px] font-bold text-[#065f46]">R$ 6.240</p>
                             </div>
-                          ))}
+                            <div className="bg-[#fff1f2] rounded-lg p-2 border border-red-200">
+                              <p className="text-[8px] text-red-400 mb-0.5">Pendente</p>
+                              <p className="text-[10px] font-bold text-red-500">R$ 2.160</p>
+                            </div>
+                          </div>
+                          <div className="bg-gray-50 rounded-lg p-2 border border-gray-100">
+                            <p className="text-[8px] text-gray-400 mb-1">Próximos pacientes</p>
+                            {[
+                              { nome: 'João Pereira', hora: '14:00' },
+                              { nome: 'Carla Mendes', hora: '15:30' },
+                            ].map((p, i) => (
+                              <div key={i} className="flex justify-between items-center py-0.5">
+                                <span className="text-[9px] font-semibold text-gray-700">{p.nome}</span>
+                                <span className="text-[9px] text-gray-400">{p.hora}</span>
+                              </div>
+                            ))}
+                          </div>
                         </div>
-                        <div className="grid grid-cols-2 gap-1.5">
-                          <div className="bg-[#ecfdf5] rounded-lg p-2 border border-[#6ee7b7]/40">
-                            <p className="text-[8px] text-[#065f46]/60 mb-0.5">Recebido</p>
-                            <p className="text-[10px] font-bold text-[#065f46]">R$ 6.240</p>
-                          </div>
-                          <div className="bg-[#fff1f2] rounded-lg p-2 border border-red-200">
-                            <p className="text-[8px] text-red-400 mb-0.5">Pendente</p>
-                            <p className="text-[10px] font-bold text-red-500">R$ 2.160</p>
-                          </div>
+                        {/* home bar */}
+                        <div className="flex justify-center pb-3 pt-1 shrink-0">
+                          <div className="w-20 h-1 bg-gray-800 rounded-full" />
                         </div>
                       </div>
                     </div>
