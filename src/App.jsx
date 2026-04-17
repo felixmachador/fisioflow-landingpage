@@ -487,6 +487,110 @@ export default function App() {
         </div>
       </section>
 
+      {/* Mobile */}
+      <section className="py-10 md:py-16 px-4 md:px-6 bg-gray-50 overflow-hidden">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+            <div className="flex justify-center order-2 lg:order-1">
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-br from-[#ecfdf5] to-[#d1fae5] rounded-3xl scale-110" />
+                <div className="relative p-8 md:p-12">
+                  <div className="w-52 mx-auto bg-gray-900 rounded-[2.5rem] p-2 shadow-2xl">
+                    <div className="bg-white rounded-[2rem] overflow-hidden">
+                      <div className="bg-[#065f46] px-4 py-2.5 flex items-center justify-between">
+                        <span className="text-white/70 text-[9px] font-medium">FisioFlow</span>
+                        <div className="flex gap-1">
+                          <div className="w-1.5 h-1.5 rounded-full bg-white/40" />
+                          <div className="w-1.5 h-1.5 rounded-full bg-white/40" />
+                        </div>
+                      </div>
+                      <div className="p-3">
+                        <p className="text-[9px] font-semibold text-gray-500 mb-2">Hoje — Segunda, 7 Abr</p>
+                        <div className="space-y-1.5 mb-3">
+                          {[
+                            { hora: '08:00', nome: 'Maria Silva', cor: '#ecfdf5', borda: '#6ee7b7' },
+                            { hora: '09:00', nome: 'Turma Pilates A', cor: '#eff6ff', borda: '#93c5fd' },
+                            { hora: '10:30', nome: 'Ana Costa', cor: '#fff7ed', borda: '#fcd34d' },
+                          ].map((a, i) => (
+                            <div key={i} className="flex items-center gap-1.5 rounded px-1.5 py-1 border" style={{ background: a.cor, borderColor: a.borda }}>
+                              <span className="text-[9px] font-mono text-gray-400 w-8 shrink-0">{a.hora}</span>
+                              <span className="text-[9px] font-semibold text-gray-700">{a.nome}</span>
+                            </div>
+                          ))}
+                        </div>
+                        <div className="grid grid-cols-2 gap-1.5">
+                          <div className="bg-[#ecfdf5] rounded-lg p-2 border border-[#6ee7b7]/40">
+                            <p className="text-[8px] text-[#065f46]/60 mb-0.5">Recebido</p>
+                            <p className="text-[10px] font-bold text-[#065f46]">R$ 6.240</p>
+                          </div>
+                          <div className="bg-[#fff1f2] rounded-lg p-2 border border-red-200">
+                            <p className="text-[8px] text-red-400 mb-0.5">Pendente</p>
+                            <p className="text-[10px] font-bold text-red-500">R$ 2.160</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="order-1 lg:order-2">
+              <div className="inline-flex items-center gap-2 bg-[#ecfdf5] border border-[#6ee7b7] rounded-full px-4 py-2 mb-6">
+                <span className="text-[#065f46] text-sm font-semibold">Acesse de qualquer lugar</span>
+              </div>
+              <h2 className="serif text-3xl md:text-4xl lg:text-5xl text-gray-900 mb-4 leading-tight">
+                Na palma da{' '}
+                <span className="italic text-[#065f46]">sua mão</span>
+              </h2>
+              <p className="text-gray-500 text-base md:text-lg leading-relaxed mb-6 md:mb-8">
+                O FisioFlow funciona 100% no navegador, sem instalação. Acesse pelo celular entre atendimentos, pelo tablet na recepção ou pelo computador no consultório.
+              </p>
+              <div className="space-y-4">
+                {[
+                  {
+                    icon: (
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18h3" />
+                      </svg>
+                    ),
+                    titulo: 'Celular',
+                    desc: 'Consulte a agenda, registre evoluções e veja pagamentos entre um atendimento e outro.',
+                  },
+                  {
+                    icon: (
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5h3m-6.75 2.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-15a2.25 2.25 0 0 0-2.25-2.25H6.75A2.25 2.25 0 0 0 4.5 4.5v15a2.25 2.25 0 0 0 2.25 2.25Z" />
+                      </svg>
+                    ),
+                    titulo: 'Tablet',
+                    desc: 'Interface adaptada para a tela da recepção ou para uso durante a sessão com o paciente.',
+                  },
+                  {
+                    icon: (
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 17.25v1.007a3 3 0 0 1-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0 1 15 18.257V17.25m6-12V15a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 15V5.25A2.25 2.25 0 0 1 5.25 3h13.5A2.25 2.25 0 0 1 21 5.25Z" />
+                      </svg>
+                    ),
+                    titulo: 'Computador',
+                    desc: 'Experiência completa no desktop, sem instalar nada — basta abrir o navegador.',
+                  },
+                ].map((item, i) => (
+                  <div key={i} className="flex items-start gap-4">
+                    <div className="w-10 h-10 bg-[#ecfdf5] rounded-xl flex items-center justify-center text-[#065f46] shrink-0 mt-0.5">
+                      {item.icon}
+                    </div>
+                    <div>
+                      <p className="font-semibold text-gray-900 text-sm mb-0.5">{item.titulo}</p>
+                      <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Preços */}
       <section id="precos" className="py-10 md:py-16 px-4 md:px-6 bg-gray-50">
         <div className="max-w-5xl mx-auto">
