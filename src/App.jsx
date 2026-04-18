@@ -126,57 +126,178 @@ const faqs = [
 ]
 
 function MockDashboard() {
+  const semana = [
+    { label: 'Seg', total: 9 },
+    { label: 'Ter', total: 13 },
+    { label: 'Qua', total: 11, hoje: true },
+    { label: 'Qui', total: 14 },
+    { label: 'Sex', total: 10 },
+    { label: 'Sáb', total: 5 },
+    { label: 'Dom', total: 0 },
+  ]
+  const maxS = Math.max(...semana.map(d => d.total))
+
   return (
-    <div style={{ fontFamily: 'system-ui, sans-serif' }} className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-100 w-full">
-      <div className="bg-[#065f46] px-4 py-3 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <div className="w-2 h-2 rounded-full bg-white/40" />
-          <span className="text-white/80 text-xs font-medium">FisioFlow</span>
-        </div>
-        <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center">
-          <div className="w-3 h-3 rounded-full bg-white/60" />
+    <div style={{ fontFamily: 'system-ui, sans-serif' }} className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-100 w-full text-gray-900">
+      {/* Topbar */}
+      <div className="bg-[#065f46] px-4 py-2.5 flex items-center justify-between">
+        <span className="text-white/90 text-xs font-bold tracking-tight">FisioFlow</span>
+        <div className="flex items-center gap-1.5 bg-[#ecfdf5] border border-[#6ee7b7] rounded-full px-2.5 py-1">
+          <span className="text-[#065f46] text-[10px] font-semibold">Saúde</span>
+          <span className="text-[#065f46] text-[11px] font-bold">91</span>
+          <span className="text-[#065f46] text-[10px]">· Excelente</span>
         </div>
       </div>
+
       <div className="flex">
-        <div className="w-12 bg-gray-50 border-r border-gray-100 py-4 flex flex-col items-center gap-3">
-          {['▦','◎','◈','$','★'].map((icon, i) => (
-            <div key={i} className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs ${i === 0 ? 'bg-[#065f46] text-white' : 'text-gray-400'}`}>{icon}</div>
+        {/* Sidebar */}
+        <div className="w-11 bg-gray-50 border-r border-gray-100 py-3 flex flex-col items-center gap-2.5">
+          {[
+            <svg key="0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-3.5 h-3.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>,
+            <svg key="1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-3.5 h-3.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>,
+            <svg key="2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-3.5 h-3.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>,
+            <svg key="3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-3.5 h-3.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>,
+            <svg key="4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-3.5 h-3.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>,
+          ].map((icon, i) => (
+            <div key={i} className={`w-7 h-7 rounded-lg flex items-center justify-center ${i === 0 ? 'bg-[#065f46] text-white' : 'text-gray-400'}`}>{icon}</div>
           ))}
         </div>
-        <div className="flex-1 p-4">
-          <div className="grid grid-cols-3 gap-2 mb-4">
-            {[{ label: 'Pacientes', value: '47', color: '#065f46' }, { label: 'Este mês', value: 'R$8.4k', color: '#2563eb' }, { label: 'Confirmados', value: '12', color: '#d97706' }].map((s, i) => (
-              <div key={i} className="bg-gray-50 rounded-xl p-3 border border-gray-100">
-                <p className="text-xs text-gray-400 mb-1">{s.label}</p>
-                <p className="text-sm font-bold" style={{ color: s.color }}>{s.value}</p>
-              </div>
-            ))}
+
+        {/* Content */}
+        <div className="flex-1 p-3 overflow-hidden">
+          {/* Greeting */}
+          <div className="flex items-start justify-between mb-3">
+            <div>
+              <p className="text-xs font-bold text-gray-900 leading-tight">Boa tarde, Dra. Ana</p>
+              <p className="text-[10px] text-gray-400">quarta-feira, 16 de abril</p>
+            </div>
           </div>
-          <div className="bg-gray-50 rounded-xl p-3 border border-gray-100 mb-3">
-            <p className="text-xs font-semibold text-gray-500 mb-2">Hoje — Segunda, 7 Abr</p>
-            <div className="space-y-1.5">
+
+          {/* 4 cards */}
+          <div className="grid grid-cols-4 gap-1.5 mb-2.5">
+            {/* Pacientes */}
+            <div className="bg-gray-50 rounded-xl p-2 border border-gray-100">
+              <p className="text-[8px] text-gray-400 uppercase tracking-wide mb-1">Pacientes</p>
+              <p className="text-base font-bold text-gray-900 leading-none mb-1">84</p>
+              <div className="flex gap-1 flex-wrap">
+                <span className="text-[7px] text-gray-400">Clín. <strong className="text-gray-600">71</strong></span>
+                <span className="text-[7px] text-gray-400">Dom. <strong className="text-gray-600">13</strong></span>
+              </div>
+              <span className="text-[7px] text-[#065f46] font-bold bg-[#ecfdf5] rounded-full px-1.5 py-0.5 mt-1 inline-block">+6 este mês</span>
+            </div>
+
+            {/* Financeiro */}
+            <div className="bg-gray-50 rounded-xl p-2 border border-gray-100">
+              <p className="text-[8px] text-gray-400 uppercase tracking-wide mb-1">Financeiro</p>
+              <p className="text-xs font-bold text-[#065f46] leading-none mb-1.5">R$ 12.840</p>
+              <div className="grid grid-cols-3 gap-px bg-white rounded p-1 border border-gray-100">
+                <div className="text-center">
+                  <p className="text-[6px] text-gray-400">Receb.</p>
+                  <p className="text-[7px] font-bold text-[#065f46]">18.2k</p>
+                </div>
+                <div className="text-center border-x border-gray-100">
+                  <p className="text-[6px] text-gray-400">Pend.</p>
+                  <p className="text-[7px] font-bold text-yellow-500">3.4k</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-[6px] text-gray-400">Desp.</p>
+                  <p className="text-[7px] font-bold text-red-500">5.3k</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Agenda hoje */}
+            <div className="bg-gray-50 rounded-xl p-2 border border-gray-100">
+              <p className="text-[8px] text-gray-400 uppercase tracking-wide mb-1">Agenda hoje</p>
+              <p className="text-base font-bold text-gray-900 leading-none mb-1">11</p>
+              <div className="flex gap-1 flex-wrap">
+                <span className="text-[7px] text-gray-400">Conf. <strong className="text-[#065f46]">9</strong></span>
+                <span className="text-[7px] text-gray-400">Pend. <strong className="text-yellow-500">2</strong></span>
+              </div>
+            </div>
+
+            {/* Inadimplentes */}
+            <div className="bg-gray-50 rounded-xl p-2 border border-gray-100">
+              <p className="text-[8px] text-gray-400 uppercase tracking-wide mb-1">Inadimp.</p>
+              <p className="text-base font-bold text-red-500 leading-none mb-1">3</p>
+              <p className="text-[7px] text-gray-400">em atraso</p>
+              <p className="text-[7px] font-bold text-red-400 mt-0.5">R$ 1.240</p>
+            </div>
+          </div>
+
+          {/* Gráfico semanal */}
+          <div className="bg-gray-50 rounded-xl p-2.5 border border-gray-100 mb-2">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-[9px] font-semibold text-gray-700">Distribuição semanal</span>
+              <span className="text-[8px] bg-[#ecfdf5] text-[#065f46] font-semibold rounded-full px-2 py-0.5">62 esta semana · ▲8%</span>
+            </div>
+            <div className="grid grid-cols-7 gap-1">
+              {semana.map((d) => {
+                const pct = maxS > 0 ? (d.total / maxS) * 100 : 0
+                return (
+                  <div key={d.label} className="text-center">
+                    <div className="text-[7px] text-gray-400 mb-1">{d.label}</div>
+                    <div className="h-7 flex items-end justify-center">
+                      <div className="w-full rounded-sm transition-all" style={{
+                        height: `${Math.max(pct, d.total > 0 ? 8 : 0)}%`,
+                        background: d.hoje ? '#065f46' : '#10b981',
+                        opacity: d.hoje ? 1 : 0.55,
+                        minHeight: d.total > 0 ? 3 : 0,
+                      }} />
+                    </div>
+                    <div className={`text-[7px] mt-0.5 ${d.hoje ? 'font-bold text-gray-900' : 'text-gray-400'}`}>{d.total}</div>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+
+          {/* Turmas + Leads */}
+          <div className="grid grid-cols-2 gap-1.5">
+            <div className="bg-gray-50 rounded-xl p-2 border border-gray-100">
+              <div className="flex items-center justify-between mb-1.5">
+                <p className="text-[8px] font-semibold text-gray-700">Turmas ativas</p>
+                <span className="text-[7px] text-purple-600 font-bold bg-purple-50 rounded-full px-1.5 py-0.5">78% ocup.</span>
+              </div>
               {[
-                { hora: '08:00', nome: 'Maria Silva', tipo: 'Fisioterapia', cor: '#ecfdf5', borda: '#6ee7b7' },
-                { hora: '09:00', nome: 'Turma Pilates A', tipo: '5 alunas', cor: '#eff6ff', borda: '#93c5fd' },
-                { hora: '10:30', nome: 'Ana Costa', tipo: 'Domiciliar', cor: '#fff7ed', borda: '#fcd34d' },
-                { hora: '14:00', nome: 'João Pereira', tipo: 'Fisioterapia', cor: '#ecfdf5', borda: '#6ee7b7' },
-              ].map((a, i) => (
-                <div key={i} className="flex items-center gap-2 rounded-lg px-2 py-1.5 border" style={{ background: a.cor, borderColor: a.borda }}>
-                  <span className="text-xs font-mono text-gray-500 w-10 shrink-0">{a.hora}</span>
-                  <span className="text-xs font-semibold text-gray-700 flex-1">{a.nome}</span>
-                  <span className="text-xs text-gray-400">{a.tipo}</span>
+                { nome: 'Pilates Manhã', mat: 8, vagas: 10 },
+                { nome: 'Pilates Tarde', mat: 6, vagas: 8 },
+                { nome: 'Pilates Noite', mat: 7, vagas: 8 },
+              ].map((t, i) => (
+                <div key={i} className="mb-1.5">
+                  <div className="flex justify-between mb-0.5">
+                    <span className="text-[8px] text-gray-600 font-medium truncate">{t.nome}</span>
+                    <span className="text-[7px] text-gray-400 shrink-0 ml-1">{t.mat}/{t.vagas}</span>
+                  </div>
+                  <div className="h-1 bg-gray-200 rounded-full overflow-hidden">
+                    <div className="h-full bg-purple-500 rounded-full" style={{ width: `${(t.mat / t.vagas) * 100}%` }} />
+                  </div>
                 </div>
               ))}
             </div>
-          </div>
-          <div className="grid grid-cols-2 gap-2">
-            <div className="bg-[#ecfdf5] rounded-xl p-3 border border-[#6ee7b7]/40">
-              <p className="text-xs text-[#065f46]/60 mb-1">Recebido</p>
-              <p className="text-sm font-bold text-[#065f46]">R$ 6.240</p>
-            </div>
-            <div className="bg-[#fff1f2] rounded-xl p-3 border border-red-200">
-              <p className="text-xs text-red-400 mb-1">Pendente</p>
-              <p className="text-sm font-bold text-red-500">R$ 2.160</p>
+            <div className="bg-gray-50 rounded-xl p-2 border border-gray-100">
+              <div className="flex items-center justify-between mb-1.5">
+                <p className="text-[8px] font-semibold text-gray-700">Leads CRM</p>
+                <span className="text-[7px] text-blue-600 font-bold bg-blue-50 rounded-full px-1.5 py-0.5">+4 mês</span>
+              </div>
+              <div className="space-y-1.5">
+                <div className="flex justify-between items-center">
+                  <span className="text-[8px] text-gray-500">Total</span>
+                  <span className="text-[11px] font-bold text-gray-900">27</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-[8px] text-gray-500">Novos</span>
+                  <span className="text-[8px] font-semibold text-blue-600">8</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-[8px] text-gray-500">Sem resposta</span>
+                  <span className="text-[8px] font-semibold text-yellow-500">5</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-[8px] text-gray-500">Conversão</span>
+                  <span className="text-[8px] font-semibold text-[#065f46]">34%</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -517,38 +638,43 @@ export default function App() {
                         </div>
                         {/* content */}
                         <div className="flex-1 overflow-hidden p-3">
-                          <p className="text-[9px] font-semibold text-gray-500 mb-2">Hoje — Segunda, 7 Abr</p>
-                          <div className="space-y-1.5 mb-3">
+                          <p className="text-[9px] font-bold text-gray-900 mb-0.5">Boa tarde, Dra. Ana</p>
+                          <p className="text-[8px] text-gray-400 mb-2.5">quarta-feira, 16 de abril</p>
+                          {/* cards 2x2 */}
+                          <div className="grid grid-cols-2 gap-1.5 mb-2.5">
+                            <div className="bg-gray-50 rounded-lg p-2 border border-gray-100">
+                              <p className="text-[7px] text-gray-400 uppercase mb-1">Pacientes</p>
+                              <p className="text-sm font-bold text-gray-900 leading-none">84</p>
+                              <p className="text-[7px] text-[#065f46] font-bold mt-1">+6 este mês</p>
+                            </div>
+                            <div className="bg-gray-50 rounded-lg p-2 border border-gray-100">
+                              <p className="text-[7px] text-gray-400 uppercase mb-1">Financeiro</p>
+                              <p className="text-[11px] font-bold text-[#065f46] leading-none">R$ 12.840</p>
+                              <p className="text-[7px] text-yellow-500 font-semibold mt-1">Pend. 3.4k</p>
+                            </div>
+                            <div className="bg-gray-50 rounded-lg p-2 border border-gray-100">
+                              <p className="text-[7px] text-gray-400 uppercase mb-1">Agenda hoje</p>
+                              <p className="text-sm font-bold text-gray-900 leading-none">11</p>
+                              <p className="text-[7px] text-gray-400 mt-1">Conf. <strong className="text-[#065f46]">9</strong></p>
+                            </div>
+                            <div className="bg-gray-50 rounded-lg p-2 border border-gray-100">
+                              <p className="text-[7px] text-gray-400 uppercase mb-1">Inadimp.</p>
+                              <p className="text-sm font-bold text-red-500 leading-none">3</p>
+                              <p className="text-[7px] text-red-400 font-semibold mt-1">R$ 1.240</p>
+                            </div>
+                          </div>
+                          {/* agenda do dia */}
+                          <p className="text-[8px] font-semibold text-gray-600 mb-1.5">Agenda de hoje</p>
+                          <div className="space-y-1">
                             {[
                               { hora: '08:00', nome: 'Maria Silva', cor: '#ecfdf5', borda: '#6ee7b7' },
                               { hora: '09:00', nome: 'Turma Pilates A', cor: '#eff6ff', borda: '#93c5fd' },
                               { hora: '10:30', nome: 'Ana Costa', cor: '#fff7ed', borda: '#fcd34d' },
+                              { hora: '14:00', nome: 'João Pereira', cor: '#ecfdf5', borda: '#6ee7b7' },
                             ].map((a, i) => (
                               <div key={i} className="flex items-center gap-1.5 rounded px-1.5 py-1 border" style={{ background: a.cor, borderColor: a.borda }}>
-                                <span className="text-[9px] font-mono text-gray-400 w-8 shrink-0">{a.hora}</span>
-                                <span className="text-[9px] font-semibold text-gray-700">{a.nome}</span>
-                              </div>
-                            ))}
-                          </div>
-                          <div className="grid grid-cols-2 gap-1.5 mb-3">
-                            <div className="bg-[#ecfdf5] rounded-lg p-2 border border-[#6ee7b7]/40">
-                              <p className="text-[8px] text-[#065f46]/60 mb-0.5">Recebido</p>
-                              <p className="text-[10px] font-bold text-[#065f46]">R$ 6.240</p>
-                            </div>
-                            <div className="bg-[#fff1f2] rounded-lg p-2 border border-red-200">
-                              <p className="text-[8px] text-red-400 mb-0.5">Pendente</p>
-                              <p className="text-[10px] font-bold text-red-500">R$ 2.160</p>
-                            </div>
-                          </div>
-                          <div className="bg-gray-50 rounded-lg p-2 border border-gray-100">
-                            <p className="text-[8px] text-gray-400 mb-1">Próximos pacientes</p>
-                            {[
-                              { nome: 'João Pereira', hora: '14:00' },
-                              { nome: 'Carla Mendes', hora: '15:30' },
-                            ].map((p, i) => (
-                              <div key={i} className="flex justify-between items-center py-0.5">
-                                <span className="text-[9px] font-semibold text-gray-700">{p.nome}</span>
-                                <span className="text-[9px] text-gray-400">{p.hora}</span>
+                                <span className="text-[8px] font-mono text-gray-400 w-8 shrink-0">{a.hora}</span>
+                                <span className="text-[8px] font-semibold text-gray-700">{a.nome}</span>
                               </div>
                             ))}
                           </div>
