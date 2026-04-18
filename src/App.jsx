@@ -495,12 +495,13 @@ export default function App() {
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#ecfdf5] to-[#d1fae5] rounded-3xl scale-110" />
                 <div className="relative p-8 md:p-12">
-                  {/* botões laterais */}
-                  <div className="absolute left-[18px] top-[108px] w-[3px] h-7 bg-gray-700 rounded-full" />
-                  <div className="absolute left-[18px] top-[148px] w-[3px] h-10 bg-gray-700 rounded-full" />
-                  <div className="absolute left-[18px] top-[196px] w-[3px] h-10 bg-gray-700 rounded-full" />
-                  <div className="absolute right-[18px] top-[148px] w-[3px] h-14 bg-gray-700 rounded-full" />
-                  <div className="w-[200px] mx-auto bg-gray-900 rounded-[2.8rem] p-[3px] shadow-2xl" style={{ boxShadow: '0 30px 70px rgba(0,0,0,0.45)' }}>
+                  <div className="w-[200px] mx-auto relative">
+                  {/* botões laterais colados no frame */}
+                  <div className="absolute -left-[4px] top-[80px] w-[4px] h-7 bg-gray-700 rounded-l-full" />
+                  <div className="absolute -left-[4px] top-[120px] w-[4px] h-10 bg-gray-700 rounded-l-full" />
+                  <div className="absolute -left-[4px] top-[168px] w-[4px] h-10 bg-gray-700 rounded-l-full" />
+                  <div className="absolute -right-[4px] top-[120px] w-[4px] h-14 bg-gray-700 rounded-r-full" />
+                  <div className="bg-gray-900 rounded-[2.8rem] p-[3px] shadow-2xl" style={{ boxShadow: '0 30px 70px rgba(0,0,0,0.45)' }}>
                     <div className="relative">
                       {/* dynamic island */}
                       <div className="absolute top-[10px] left-1/2 -translate-x-1/2 w-[56px] h-[18px] bg-gray-900 rounded-full z-20" />
@@ -558,6 +559,7 @@ export default function App() {
                         </div>
                       </div>
                     </div>
+                  </div>
                   </div>
                 </div>
               </div>
