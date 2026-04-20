@@ -92,7 +92,7 @@ const plans = [
     preco_mensal: 127,
     preco_anual: 106,
     desc: 'Para fisioterapeutas autônomas',
-    features: ['1 profissional', 'Até 80 pacientes', 'Agenda completa', 'Prontuário eletrônico', 'Financeiro básico', 'WhatsApp manual', 'IA Flora', 'Suporte por e-mail'],
+    features: ['1 profissional · até 80 pacientes', 'Agenda completa com recorrência', 'Prontuário eletrônico + corpo humano 3D interativo', 'Financeiro e controle de pagamentos', 'WhatsApp manual para pacientes', 'PDFs: prontuário, atestado, recibo', 'Flora — IA assistente da clínica', 'FisioFlow Club', 'Suporte por e-mail'],
     destaque: false,
     cta: 'Começar grátis'
   },
@@ -101,7 +101,7 @@ const plans = [
     preco_mensal: 197,
     preco_anual: 164,
     desc: 'Para clínicas em crescimento',
-    features: ['Até 5 profissionais', 'Pacientes ilimitados', 'Tudo do Solo', 'Turmas de Pilates', 'CRM de leads', 'Orçamentos PDF', 'WhatsApp automático', 'Dashboard avançado'],
+    features: ['Até 5 profissionais · pacientes ilimitados', 'Tudo do plano Solo', 'Turmas de Pilates completas', 'WhatsApp automático (confirmações, cobranças, aniversários)', 'CRM de leads — kanban completo', 'Orçamentos em PDF', 'Dashboard avançado', 'Financeiro completo com relatórios', 'Suporte prioritário'],
     destaque: true,
     cta: 'Começar grátis'
   },
@@ -110,7 +110,7 @@ const plans = [
     preco_mensal: 347,
     preco_anual: 289,
     desc: 'Para clínicas com equipe completa',
-    features: ['Profissionais ilimitados', 'Pacientes ilimitados', 'Tudo do Equipe', 'Contratos PDF', 'Relatório de alta', 'Prognóstico por IA', 'Configuração assistida', 'Suporte por videochamada'],
+    features: ['Profissionais ilimitados · pacientes ilimitados', 'Tudo do plano Equipe', 'Contratos PDF (fisioterapia e Pilates)', 'Relatório de alta em PDF', 'Prognóstico por IA', 'Notificação quando paciente cancela ou remarca', 'Configuração assistida no onboarding', 'Suporte por videochamada', 'Maiores descontos no Club'],
     destaque: false,
     cta: 'Começar grátis'
   },
