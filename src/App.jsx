@@ -94,7 +94,7 @@ const plans = [
     desc: 'Para fisioterapeutas autônomas',
     features: ['1 profissional · até 80 pacientes', 'Agenda completa com recorrência', 'Prontuário eletrônico + corpo humano 3D interativo', 'Financeiro e controle de pagamentos', 'WhatsApp manual para pacientes', 'PDFs: prontuário, atestado, recibo', 'Flora — IA assistente da clínica', 'FisioFlow Club', 'Suporte por e-mail'],
     destaque: false,
-    cta: 'Começar grátis'
+    cta: 'Começar com o Solo'
   },
   {
     name: 'Equipe',
@@ -103,7 +103,7 @@ const plans = [
     desc: 'Para clínicas em crescimento',
     features: ['Até 5 profissionais · pacientes ilimitados', 'Tudo do plano Solo', 'Turmas de Pilates completas', 'WhatsApp automático (confirmações, cobranças, aniversários)', 'CRM de leads — kanban completo', 'Orçamentos em PDF', 'Dashboard avançado', 'Financeiro completo com relatórios', 'Suporte prioritário'],
     destaque: true,
-    cta: 'Começar grátis'
+    cta: 'Escolher o Equipe'
   },
   {
     name: 'Clínica',
@@ -112,7 +112,7 @@ const plans = [
     desc: 'Para clínicas com equipe completa',
     features: ['Profissionais ilimitados · pacientes ilimitados', 'Tudo do plano Equipe', 'Contratos PDF (fisioterapia e Pilates)', 'Relatório de alta em PDF', 'Prognóstico por IA', 'Notificação quando paciente cancela ou remarca', 'Configuração assistida no onboarding', 'Suporte por videochamada', 'Maiores descontos no Club'],
     destaque: false,
-    cta: 'Começar grátis'
+    cta: 'Escolher o Clínica'
   },
 ]
 
@@ -546,7 +546,7 @@ export default function App() {
                 ))}
               </div>
               <button onClick={irParaCadastro} className="w-full sm:w-auto bg-[#065f46] hover:bg-[#047857] text-white font-bold px-8 py-4 rounded-xl transition-all hover:shadow-lg hover:-translate-y-0.5">
-                Criar minha conta grátis
+                Experimentar grátis por 7 dias
               </button>
             </div>
             <div className="relative mt-2 lg:mt-0">
@@ -811,7 +811,7 @@ export default function App() {
           </h2>
           <p className="text-[#6ee7b7] text-base md:text-lg mb-6 md:mb-8">7 dias grátis, sem cartão, sem compromisso.</p>
           <button onClick={irParaCadastro} className="w-full sm:w-auto bg-white text-[#065f46] font-bold px-8 md:px-10 py-4 rounded-xl text-lg hover:bg-gray-50 transition-colors">
-            Criar minha conta grátis
+            Quero organizar minha clínica
           </button>
         </div>
       </section>
@@ -852,7 +852,7 @@ export default function App() {
           </h2>
           <p className="text-gray-500 text-base md:text-xl mb-8 md:mb-10">Junte-se às fisioterapeutas que já organizam sua clínica com o FisioFlow.</p>
           <button onClick={irParaCadastro} className="w-full sm:w-auto bg-[#065f46] hover:bg-[#047857] text-white font-bold px-8 md:px-12 py-4 md:py-5 rounded-xl text-lg md:text-xl transition-all hover:shadow-xl hover:-translate-y-0.5">
-            Criar minha conta grátis
+            Começar meus 7 dias grátis
           </button>
           <p className="text-gray-400 text-sm mt-4">7 dias grátis · Sem cartão · Cancele quando quiser</p>
         </div>
