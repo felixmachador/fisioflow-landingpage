@@ -310,7 +310,12 @@ export default function App() {
   const [faqAberto, setFaqAberto] = useState(null)
   const [anual, setAnual] = useState(false)
 
-  const irParaCadastro = () => { window.location.href = CADASTRO_URL }
+  const irParaCadastro = () => {
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', 'conversion', { send_to: 'AW-18077801620/o-O2CIfNn5kcEJS5laxD', value: 1.0, currency: 'BRL' })
+    }
+    window.location.href = CADASTRO_URL
+  }
 
   const BotaoPrimario = ({ className = '', texto = 'Criar minha conta grátis' }) => (
     <button onClick={irParaCadastro} className={`bg-[#065f46] hover:bg-[#047857] text-white font-semibold rounded-xl transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 ${className}`}>
