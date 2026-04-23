@@ -357,6 +357,9 @@ export default function App() {
     if (typeof window.gtag === 'function') {
       window.gtag('event', 'conversion', { send_to: 'AW-18077801620/o-O2CIfNn5kcEJS5laxD', value: 1.0, currency: 'BRL' })
     }
+    if (typeof window.fbq === 'function') {
+      window.fbq('track', 'Lead')
+    }
     window.location.href = CADASTRO_URL
   }
 
