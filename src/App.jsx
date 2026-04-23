@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react'
 
 const CADASTRO_URL = 'https://app.usefisioflow.com.br/cadastro'
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzcuhBA73Bx_p9JqsEtuKvALcF6p4N71sxujcxpq-IgvFzFwIRqZsem8vjkqxO9lVCn/exec'
 
 const features = [
   {
@@ -309,8 +310,50 @@ function MockDashboard() {
 export default function App() {
   const [faqAberto, setFaqAberto] = useState(null)
   const [anual, setAnual] = useState(false)
+  const [modalAberto, setModalAberto] = useState(false)
+  const [formLead, setFormLead] = useState({ nome: '', whatsapp: '', email: '' })
+  const [errosLead, setErrosLead] = useState({})
+  const [enviandoLead, setEnviandoLead] = useState(false)
+  const [erroEnvioLead, setErroEnvioLead] = useState('')
 
-  const irParaCadastro = () => {
+  const fecharModal = () => {
+    setModalAberto(false)
+    setFormLead({ nome: '', whatsapp: '', email: '' })
+    setErrosLead({})
+    setErroEnvioLead('')
+  }
+
+  const irParaCadastro = () => setModalAberto(true)
+
+  const mascaraWhatsapp = (v) => {
+    const n = v.replace(/\D/g, '').slice(0, 11)
+    if (!n.length) return ''
+    if (n.length <= 2) return `(${n}`
+    if (n.length <= 7) return `(${n.slice(0, 2)}) ${n.slice(2)}`
+    return `(${n.slice(0, 2)}) ${n.slice(2, 7)}-${n.slice(7)}`
+  }
+
+  const validarLead = () => {
+    const e = {}
+    if (!formLead.nome.trim()) e.nome = 'Nome é obrigatório'
+    if (formLead.whatsapp.replace(/\D/g, '').length < 10) e.whatsapp = 'WhatsApp inválido'
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formLead.email)) e.email = 'E-mail inválido'
+    return e
+  }
+
+  const handleSubmitLead = (ev) => {
+    ev.preventDefault()
+    const errs = validarLead()
+    if (Object.keys(errs).length) { setErrosLead(errs); return }
+    setEnviandoLead(true)
+    setErroEnvioLead('')
+    try {
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon(APPS_SCRIPT_URL, JSON.stringify(formLead))
+      } else {
+        fetch(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(formLead) })
+      }
+    } catch (_) {}
     if (typeof window.gtag === 'function') {
       window.gtag('event', 'conversion', { send_to: 'AW-18077801620/o-O2CIfNn5kcEJS5laxD', value: 1.0, currency: 'BRL' })
     }
@@ -330,6 +373,7 @@ export default function App() {
         * { box-sizing: border-box; }
         html { scroll-behavior: smooth; }
         .serif { font-family: 'DM Serif Display', Georgia, serif; }
+        @keyframes modalFadeIn { from { opacity: 0; transform: scale(0.96) translateY(8px); } to { opacity: 1; transform: scale(1) translateY(0); } }
       `}</style>
 
       {/* Nav */}
@@ -862,6 +906,77 @@ export default function App() {
           <p className="text-gray-400 text-sm mt-4">7 dias grátis · Sem cartão · Cancele quando quiser</p>
         </div>
       </section>
+
+      {/* Modal de captura de lead */}
+      {modalAberto && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center px-4"
+          onClick={(e) => { if (e.target === e.currentTarget) fecharModal() }}
+        >
+          <div className="absolute inset-0 bg-black/60" onClick={fecharModal} />
+          <div
+            className="relative bg-white rounded-2xl w-full max-w-md p-8"
+            style={{ boxShadow: '0 20px 60px rgba(0,0,0,0.3)', animation: 'modalFadeIn 0.22s ease' }}
+          >
+            <button
+              onClick={fecharModal}
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+              </svg>
+            </button>
+            <div className="bg-[#ecfdf5] rounded-xl p-4 mb-6">
+              <h2 className="serif text-2xl text-gray-900 mb-1">Ótima escolha! Antes de continuar…</h2>
+              <p className="text-[#065f46] text-sm font-medium">Preencha rapidinho e garanta descontos exclusivos</p>
+            </div>
+            <form onSubmit={handleSubmitLead} noValidate className="space-y-4">
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-1">Nome completo</label>
+                <input
+                  type="text"
+                  value={formLead.nome}
+                  onChange={(e) => { setFormLead(p => ({ ...p, nome: e.target.value })); setErrosLead(p => ({ ...p, nome: '' })) }}
+                  placeholder="Seu nome completo"
+                  className={`w-full border rounded-xl px-4 py-3 text-sm outline-none transition-colors ${errosLead.nome ? 'border-red-400' : 'border-gray-200 focus:border-[#065f46]'}`}
+                />
+                {errosLead.nome && <p className="text-red-500 text-xs mt-1">{errosLead.nome}</p>}
+              </div>
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-1">WhatsApp</label>
+                <input
+                  type="tel"
+                  value={formLead.whatsapp}
+                  onChange={(e) => { setFormLead(p => ({ ...p, whatsapp: mascaraWhatsapp(e.target.value) })); setErrosLead(p => ({ ...p, whatsapp: '' })) }}
+                  placeholder="(00) 00000-0000"
+                  className={`w-full border rounded-xl px-4 py-3 text-sm outline-none transition-colors ${errosLead.whatsapp ? 'border-red-400' : 'border-gray-200 focus:border-[#065f46]'}`}
+                />
+                {errosLead.whatsapp && <p className="text-red-500 text-xs mt-1">{errosLead.whatsapp}</p>}
+              </div>
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-1">E-mail</label>
+                <input
+                  type="email"
+                  value={formLead.email}
+                  onChange={(e) => { setFormLead(p => ({ ...p, email: e.target.value })); setErrosLead(p => ({ ...p, email: '' })) }}
+                  placeholder="seu@email.com"
+                  className={`w-full border rounded-xl px-4 py-3 text-sm outline-none transition-colors ${errosLead.email ? 'border-red-400' : 'border-gray-200 focus:border-[#065f46]'}`}
+                />
+                {errosLead.email && <p className="text-red-500 text-xs mt-1">{errosLead.email}</p>}
+              </div>
+              {erroEnvioLead && <p className="text-red-500 text-sm text-center">{erroEnvioLead}</p>}
+              <button
+                type="submit"
+                disabled={enviandoLead}
+                className="w-full bg-[#065f46] hover:bg-[#047857] disabled:opacity-60 text-white font-bold py-4 rounded-xl transition-colors text-sm"
+              >
+                {enviandoLead ? 'Enviando…' : 'Continuar para o cadastro →'}
+              </button>
+              <p className="text-center text-gray-400 text-xs">Não precisa de cartão de crédito</p>
+            </form>
+          </div>
+        </div>
+      )}
 
       {/* Footer */}
       <footer className="border-t border-gray-100 py-10 md:py-12 px-4 md:px-6 bg-white">
