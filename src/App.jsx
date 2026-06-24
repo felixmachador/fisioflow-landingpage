@@ -387,6 +387,7 @@ export default function App() {
             <a href="#funcionalidades" className="text-sm text-gray-500 hover:text-gray-900 transition-colors font-medium">Funcionalidades</a>
             <a href="#precos" className="text-sm text-gray-500 hover:text-gray-900 transition-colors font-medium">Preços</a>
             <a href="#faq" className="text-sm text-gray-500 hover:text-gray-900 transition-colors font-medium">FAQ</a>
+            <a href="/blog" className="text-sm text-gray-500 hover:text-gray-900 transition-colors font-medium">Blog</a>
             <a href="https://app.usefisioflow.com.br" className="text-sm text-gray-500 hover:text-gray-900 transition-colors font-medium">Entrar</a>
             <BotaoPrimario className="text-sm px-5 py-2.5" />
           </div>
