@@ -996,6 +996,9 @@ export default function App() {
             <a href="/privacidade" className="text-gray-400 hover:text-gray-600 text-sm transition-colors">Privacidade</a>
           </div>
         </div>
+        <div className="max-w-6xl mx-auto text-center mt-6 pt-6 border-t border-gray-50">
+          <p className="text-gray-400 text-xs">FisioFlow é um produto da M3 Branding LTDA — CNPJ 58.740.015/0001-76</p>
+        </div>
       </footer>
     </div>
   )
