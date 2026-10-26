@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useGrade, montarPlanos, nomeDoPlano, seloDoRecurso, menorPreco } from './lib/planos'
-import { LinhaRecurso, LegendaFicticia } from './components/Vitrine'
+import { LinhaRecurso, LegendaFicticia, TelaNavegador } from './components/Vitrine'
 
 const CADASTRO_URL = 'https://app.usefisioflow.com.br/cadastro'
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzcuhBA73Bx_p9JqsEtuKvALcF6p4N71sxujcxpq-IgvFzFwIRqZsem8vjkqxO9lVCn/exec'
@@ -297,12 +297,12 @@ export default function App() {
                 <span className="text-[#065f46] text-sm font-semibold">{dias} dias grátis · sem cartão de crédito</span>
               </div>
               <h1 className="serif text-4xl sm:text-5xl lg:text-6xl leading-[1.05] mb-5 md:mb-6 text-gray-900">
-                Sua agenda se confirma{' '}
-                <span className="italic text-[#065f46]">sozinha.</span>
+                Sua clínica no{' '}
+                <span className="italic text-[#065f46] whitespace-nowrap">fluxo certo.</span>
               </h1>
               <p className="text-base md:text-lg text-gray-600 mb-7 md:mb-8 leading-relaxed max-w-xl">
-                Na véspera, o paciente recebe a confirmação no WhatsApp e responde com um toque. A agenda se atualiza na hora.
-                Prontuário, Pilates, financeiro e contratos no mesmo sistema, feito para fisioterapeutas.
+                Agenda que se confirma pelo WhatsApp, prontuário com corpo 3D, turmas de Pilates, financeiro e contratos assinados no celular.
+                Tudo num só sistema, feito para fisioterapeutas.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 mb-6">
                 <BotaoPrimario className="px-7 py-4 text-base w-full sm:w-auto text-center" texto={`Testar grátis por ${dias} dias`} />
@@ -320,16 +320,19 @@ export default function App() {
             <div>
               <div className="relative">
                 <div className="absolute -inset-4 md:-inset-6 bg-gradient-to-br from-[#d1fae5] to-[#ecfdf5] rounded-[2rem] rotate-1" aria-hidden="true" />
-                <img
-                  src="/telas/hero-agenda-whatsapp.webp"
-                  srcSet="/telas/hero-agenda-whatsapp-800.webp 800w, /telas/hero-agenda-whatsapp.webp 1600w"
-                  sizes="(min-width: 1024px) 620px, 100vw"
-                  alt="Agenda do FisioFlow com a sessão confirmada e, ao lado, o celular do paciente respondendo à confirmação no WhatsApp"
-                  fetchpriority="high"
-                  className="relative w-full h-auto rounded-2xl shadow-[0_30px_80px_-25px_rgba(6,95,70,0.55)]"
-                />
+                <div className="relative mr-6 sm:mr-12 lg:mr-10">
+                  <TelaNavegador nome="central" prioridade alt="Central da Clínica do FisioFlow com pacientes, financeiro do mês, agenda de hoje e ocupação das turmas" />
+                </div>
+                <div className="absolute -bottom-6 right-0 w-[30%] max-w-[180px] rounded-[1.6rem] bg-gray-900 p-[5px] rotate-3 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5)]">
+                  <img
+                    src="/telas/whatsapp-celular.webp"
+                    alt="Celular do paciente confirmando a sessão pelo WhatsApp"
+                    fetchpriority="high"
+                    className="block w-full h-auto rounded-[1.3rem]"
+                  />
+                </div>
               </div>
-              <LegendaFicticia className="mt-9 text-center lg:text-right" />
+              <LegendaFicticia className="mt-12 text-center lg:text-right" />
             </div>
           </div>
         </div>
@@ -339,7 +342,7 @@ export default function App() {
       <section className="bg-[#065f46] py-7 md:py-9 px-4 md:px-6">
         <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-8 text-center">
           {[
-            { valor: 'WhatsApp', label: 'Confirmação automática das sessões' },
+            { valor: 'Tudo em um', label: 'Agenda, prontuário, Pilates, financeiro e WhatsApp' },
             { valor: `${dias} dias`, label: 'Grátis para testar, sem cartão' },
             { valor: formatarReais(menorPreco(grade)), label: 'Por mês no plano Solo' },
           ].map((s, i) => (
