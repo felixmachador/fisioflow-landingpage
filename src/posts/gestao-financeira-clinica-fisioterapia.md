@@ -89,4 +89,4 @@ Se sua gestão financeira hoje é zero, o primeiro passo é simples: registre tu
 
 A partir daí, automatize o que puder — lembrete de cobrança, registro de presença, relatório mensal. Quanto menos você precisar fazer manualmente, mais consistente o processo vai ser.
 
-O FisioFlow integra controle financeiro, registro de sessões e relatórios em um único sistema, eliminando as planilhas e dando visibilidade real para a saúde da sua clínica. Teste grátis por 7 dias.
+O FisioFlow integra controle financeiro, registro de sessões e relatórios em um único sistema, eliminando as planilhas e dando visibilidade real para a saúde da sua clínica. Teste grátis por 14 dias.

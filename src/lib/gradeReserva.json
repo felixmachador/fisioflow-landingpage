@@ -1,0 +1,258 @@
+{
+  "planos": [
+    {
+      "id": "solo",
+      "nome": "Solo",
+      "descricao": "Para fisioterapeutas que atendem sozinhas e querem a agenda organizada e confirmada.",
+      "precos": {
+        "mensal": 97,
+        "anual": 972,
+        "anualMensal": 81
+      },
+      "limites": {
+        "limitePacientes": 80,
+        "toleranciaPacientes": 0.1,
+        "limiteProfissionais": 1,
+        "limiteMensagensWhatsapp": null
+      }
+    },
+    {
+      "id": "equipe",
+      "nome": "Equipe",
+      "descricao": "Para clínicas com equipe que precisam de automação, contratos e gestão.",
+      "precos": {
+        "mensal": 197,
+        "anual": 1968,
+        "anualMensal": 164
+      },
+      "limites": {
+        "limitePacientes": null,
+        "toleranciaPacientes": 0,
+        "limiteProfissionais": 5,
+        "limiteMensagensWhatsapp": null
+      }
+    },
+    {
+      "id": "clinica",
+      "nome": "Clínica",
+      "descricao": "Para clínicas maiores que querem IA, profissionais ilimitados e suporte dedicado.",
+      "precos": {
+        "mensal": 347,
+        "anual": 3468,
+        "anualMensal": 289
+      },
+      "limites": {
+        "limitePacientes": null,
+        "toleranciaPacientes": 0,
+        "limiteProfissionais": null,
+        "limiteMensagensWhatsapp": null
+      }
+    }
+  ],
+  "categorias": [
+    {
+      "chave": "atendimento",
+      "nome": "Agenda e atendimento"
+    },
+    {
+      "chave": "whatsapp",
+      "nome": "WhatsApp"
+    },
+    {
+      "chave": "documentos",
+      "nome": "Documentos"
+    },
+    {
+      "chave": "gestao",
+      "nome": "Gestão"
+    },
+    {
+      "chave": "ia",
+      "nome": "Inteligência artificial"
+    },
+    {
+      "chave": "suporte",
+      "nome": "Suporte"
+    }
+  ],
+  "recursos": [
+    {
+      "chave": "agenda",
+      "categoria": "atendimento",
+      "planoMinimo": "solo",
+      "nome": "Agenda completa com recorrência",
+      "descricao": "Agenda por profissional, sessões recorrentes e controle de status."
+    },
+    {
+      "chave": "prontuario",
+      "categoria": "atendimento",
+      "planoMinimo": "solo",
+      "nome": "Prontuário eletrônico com corpo 3D",
+      "descricao": "Anamnese, avaliação, evoluções e anexos de cada paciente."
+    },
+    {
+      "chave": "financeiro",
+      "categoria": "atendimento",
+      "planoMinimo": "solo",
+      "nome": "Financeiro e controle de pagamentos",
+      "descricao": "Pagamentos, pacotes de sessões e despesas da clínica."
+    },
+    {
+      "chave": "turmas",
+      "categoria": "atendimento",
+      "planoMinimo": "solo",
+      "nome": "Turmas de Pilates",
+      "descricao": "Turmas, matrículas, presença e reposições."
+    },
+    {
+      "chave": "whatsappManual",
+      "categoria": "whatsapp",
+      "planoMinimo": "solo",
+      "nome": "Envio de mensagens aos pacientes",
+      "descricao": "Envie confirmações, lembretes e avisos pelo WhatsApp com um clique."
+    },
+    {
+      "chave": "confirmacaoAutomatica",
+      "categoria": "whatsapp",
+      "planoMinimo": "solo",
+      "nome": "Confirmação automática de consultas e aulas",
+      "descricao": "Na véspera, o paciente recebe a confirmação e responde pelos botões."
+    },
+    {
+      "chave": "avisoClinica",
+      "categoria": "whatsapp",
+      "planoMinimo": "solo",
+      "nome": "Aviso quando o paciente cancela ou pede para remarcar",
+      "descricao": "A resposta do paciente chega para você e muda o status na agenda."
+    },
+    {
+      "chave": "cobrancaAutomatica",
+      "categoria": "whatsapp",
+      "planoMinimo": "solo",
+      "nome": "Lembrete automático de cobrança",
+      "descricao": "No dia do vencimento, o paciente recebe o lembrete com os dados de pagamento."
+    },
+    {
+      "chave": "aniversarioAutomatico",
+      "categoria": "whatsapp",
+      "planoMinimo": "solo",
+      "nome": "Mensagem automática de aniversário",
+      "descricao": "Parabéns enviados em nome da clínica no dia do aniversário."
+    },
+    {
+      "chave": "documentosBasicos",
+      "categoria": "documentos",
+      "planoMinimo": "solo",
+      "nome": "PDFs de prontuário, atestado e recibo",
+      "descricao": "Documentos prontos com o logo e os dados da clínica."
+    },
+    {
+      "chave": "laudo",
+      "categoria": "documentos",
+      "planoMinimo": "equipe",
+      "nome": "Laudo em PDF",
+      "descricao": "Laudo fisioterapêutico montado a partir do prontuário."
+    },
+    {
+      "chave": "contratos",
+      "categoria": "documentos",
+      "planoMinimo": "equipe",
+      "nome": "Contratos de fisioterapia e Pilates",
+      "descricao": "Contratos em PDF com as cláusulas da clínica e assinatura do paciente."
+    },
+    {
+      "chave": "relatorioAlta",
+      "categoria": "documentos",
+      "planoMinimo": "clinica",
+      "nome": "Relatório de alta em PDF",
+      "descricao": "Resumo do tratamento para entregar ao paciente na alta."
+    },
+    {
+      "chave": "crm",
+      "categoria": "gestao",
+      "planoMinimo": "equipe",
+      "nome": "CRM de leads",
+      "descricao": "Acompanhe contatos interessados em um quadro até virarem pacientes."
+    },
+    {
+      "chave": "orcamentos",
+      "categoria": "gestao",
+      "planoMinimo": "equipe",
+      "nome": "Orçamentos em PDF",
+      "descricao": "Monte orçamentos e envie ao paciente para aprovação."
+    },
+    {
+      "chave": "dashboardCompleto",
+      "categoria": "gestao",
+      "planoMinimo": "equipe",
+      "nome": "Painel da clínica completo",
+      "descricao": "Índice de saúde da clínica, distribuição semanal e comparação com a semana anterior."
+    },
+    {
+      "chave": "financeiroAvancado",
+      "categoria": "gestao",
+      "planoMinimo": "equipe",
+      "nome": "Relatórios financeiros avançados",
+      "descricao": "Gráficos de receita e despesa e vencimentos dos próximos 7 dias."
+    },
+    {
+      "chave": "flora",
+      "categoria": "ia",
+      "planoMinimo": "solo",
+      "nome": "Flora, a assistente com IA",
+      "descricao": "Tire dúvidas e peça ajuda com textos clínicos a qualquer momento."
+    },
+    {
+      "chave": "laudoIA",
+      "categoria": "ia",
+      "planoMinimo": "clinica",
+      "nome": "Laudo escrito por IA",
+      "descricao": "A IA redige o laudo a partir do prontuário; você revisa e assina."
+    },
+    {
+      "chave": "prognosticoIA",
+      "categoria": "ia",
+      "planoMinimo": "clinica",
+      "nome": "Prognóstico por IA",
+      "descricao": "Estimativa de evolução do tratamento com base nas sessões registradas."
+    },
+    {
+      "chave": "suporteEmail",
+      "categoria": "suporte",
+      "planoMinimo": "solo",
+      "nome": "Suporte por e-mail",
+      "descricao": "Tire dúvidas com a nossa equipe pelo e-mail de suporte."
+    },
+    {
+      "chave": "suportePrioritario",
+      "categoria": "suporte",
+      "planoMinimo": "equipe",
+      "nome": "Suporte prioritário",
+      "descricao": "Seus chamados são atendidos primeiro."
+    },
+    {
+      "chave": "videochamada",
+      "categoria": "suporte",
+      "planoMinimo": "clinica",
+      "nome": "Suporte por videochamada",
+      "descricao": "Atendimento ao vivo com a nossa equipe."
+    },
+    {
+      "chave": "configuracaoAssistida",
+      "categoria": "suporte",
+      "planoMinimo": "clinica",
+      "nome": "Configuração assistida",
+      "descricao": "Nossa equipe configura a clínica com você no início."
+    }
+  ],
+  "trial": {
+    "dias": 14,
+    "plano": "equipe",
+    "limites": {
+      "limitePacientes": null,
+      "toleranciaPacientes": 0,
+      "limiteProfissionais": 5,
+      "limiteMensagensWhatsapp": 100
+    }
+  }
+}

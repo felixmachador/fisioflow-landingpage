@@ -74,4 +74,4 @@ Pacotes também beneficiam a clínica com previsibilidade de receita. Oferecer u
 
 Nenhuma dessas estratégias funciona de forma isolada tão bem quanto todas juntas. Lembrete automático + política clara + lista de espera ativa + identificação de padrões cria um sistema que, na prática, mantém a taxa de faltas abaixo de 10% — metade do que é considerado normal no setor.
 
-O FisioFlow automatiza lembretes de WhatsApp, registra presenças e faltas por paciente, e gera relatórios de assiduidade para que você identifique esses padrões sem esforço manual. Teste grátis por 7 dias.
+O FisioFlow automatiza lembretes de WhatsApp, registra presenças e faltas por paciente, e gera relatórios de assiduidade para que você identifique esses padrões sem esforço manual. Teste grátis por 14 dias.

@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react'
+import { useGrade, montarPlanos, nomeDoPlano } from './lib/planos'
 
 const CADASTRO_URL = 'https://app.usefisioflow.com.br/cadastro'
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzcuhBA73Bx_p9JqsEtuKvALcF6p4N71sxujcxpq-IgvFzFwIRqZsem8vjkqxO9lVCn/exec'
@@ -87,42 +88,12 @@ const features = [
   },
 ]
 
-const plans = [
-  {
-    name: 'Solo',
-    preco_mensal: 127,
-    preco_anual: 106,
-    desc: 'Para fisioterapeutas autônomas',
-    features: ['1 profissional · até 80 pacientes', 'Agenda completa com recorrência', 'Prontuário eletrônico + corpo humano 3D interativo', 'Financeiro e controle de pagamentos', 'WhatsApp manual para pacientes', 'PDFs: prontuário, atestado, recibo', 'Flora — IA assistente da clínica', 'FisioFlow Club', 'Suporte por e-mail'],
-    destaque: false,
-    cta: 'Começar com o Solo'
-  },
-  {
-    name: 'Equipe',
-    preco_mensal: 197,
-    preco_anual: 164,
-    desc: 'Para clínicas em crescimento',
-    features: ['Até 5 profissionais · pacientes ilimitados', 'Tudo do plano Solo', 'Turmas de Pilates completas', 'WhatsApp automático (confirmações, cobranças, aniversários)', 'CRM de leads — kanban completo', 'Orçamentos em PDF', 'Dashboard avançado', 'Financeiro completo com relatórios', 'Suporte prioritário'],
-    destaque: true,
-    cta: 'Escolher o Equipe'
-  },
-  {
-    name: 'Clínica',
-    preco_mensal: 347,
-    preco_anual: 289,
-    desc: 'Para clínicas com equipe completa',
-    features: ['Profissionais ilimitados · pacientes ilimitados', 'Tudo do plano Equipe', 'Contratos PDF (fisioterapia e Pilates)', 'Relatório de alta em PDF', 'Prognóstico por IA', 'Notificação quando paciente cancela ou remarca', 'Configuração assistida no onboarding', 'Suporte por videochamada', 'Maiores descontos no Club'],
-    destaque: false,
-    cta: 'Escolher o Clínica'
-  },
-]
-
-const faqs = [
+const montarFaqs = (grade) => [
   { q: 'Preciso instalar algum programa?', a: 'Não. O FisioFlow funciona 100% no navegador. Acesse de qualquer computador, tablet ou celular, em qualquer lugar.' },
   { q: 'Meus dados ficam seguros?', a: 'Sim. Seus dados ficam armazenados em servidores seguros com backup automático. Cada clínica acessa apenas seus próprios dados, com isolamento total.' },
   { q: 'Posso cancelar quando quiser?', a: 'Sim, sem multas ou taxas. Cancele quando quiser diretamente pelo sistema, sem burocracia.' },
   { q: 'Funciona para pilates e fisioterapia ao mesmo tempo?', a: 'Sim. O FisioFlow foi construído especificamente para clínicas que atendem fisioterapia e pilates ao mesmo tempo, com módulos dedicados para cada um.' },
-  { q: 'Tem período de teste gratuito?', a: 'Sim, 7 dias grátis sem precisar de cartão de crédito. Você experimenta todas as funcionalidades do plano Solo sem compromisso.' },
+  { q: 'Tem período de teste gratuito?', a: `Sim, ${grade.trial.dias} dias grátis sem precisar de cartão de crédito. Você experimenta tudo do plano ${nomeDoPlano(grade, grade.trial.plano)} sem compromisso.` },
   { q: 'Como funciona a configuração assistida do plano Clínica?', a: 'Nossa equipe agenda uma videochamada para configurar o sistema junto com você — importar pacientes, configurar agenda, WhatsApp e tudo mais. Você começa a usar no mesmo dia.' },
 ]
 
@@ -308,6 +279,10 @@ function MockDashboard() {
 }
 
 export default function App() {
+  const grade = useGrade()
+  const plans = montarPlanos(grade)
+  const faqs = montarFaqs(grade)
+  const dias = grade.trial.dias
   const [faqAberto, setFaqAberto] = useState(null)
   const [anual, setAnual] = useState(false)
   const [modalAberto, setModalAberto] = useState(false)
@@ -405,7 +380,7 @@ export default function App() {
             <div>
               <div className="inline-flex items-center gap-2 bg-[#ecfdf5] border border-[#6ee7b7] rounded-full px-4 py-2 mb-6 md:mb-8">
                 <span className="w-2 h-2 bg-[#22c55e] rounded-full animate-pulse" />
-                <span className="text-[#065f46] text-sm font-semibold">7 dias grátis · Sem cartão</span>
+                <span className="text-[#065f46] text-sm font-semibold">{dias} dias grátis · Sem cartão</span>
               </div>
               <h1 className="serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.1] mb-4 md:mb-6 text-gray-900">
                 Gestão completa para sua{' '}
@@ -461,7 +436,7 @@ export default function App() {
         <div className="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 text-center">
           {[
             { valor: '100%', label: 'Online e seguro' },
-            { valor: '7 dias', label: 'Grátis para testar' },
+            { valor: `${dias} dias`, label: 'Grátis para testar' },
             { valor: 'Ilimitados', label: 'Pacientes no Equipe e Clínica' },
           ].map((s, i) => (
             <div key={i} className={i < 2 ? 'sm:border-0 border-b border-[#047857] pb-4 sm:pb-0' : ''}>
@@ -603,7 +578,7 @@ export default function App() {
                 ))}
               </div>
               <button onClick={irParaCadastro} className="w-full sm:w-auto bg-[#065f46] hover:bg-[#047857] text-white font-bold px-8 py-4 rounded-xl transition-all hover:shadow-lg hover:-translate-y-0.5">
-                Experimentar grátis por 7 dias
+                Experimentar grátis por {dias} dias
               </button>
             </div>
             <div className="relative mt-2 lg:mt-0">
@@ -815,7 +790,7 @@ export default function App() {
               <button onClick={() => setAnual(false)} className={`px-4 md:px-5 py-2 rounded-lg text-sm font-semibold transition-all ${!anual ? 'bg-[#065f46] text-white shadow' : 'text-gray-500 hover:text-gray-700'}`}>Mensal</button>
               <button onClick={() => setAnual(true)} className={`px-4 md:px-5 py-2 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 ${anual ? 'bg-[#065f46] text-white shadow' : 'text-gray-500 hover:text-gray-700'}`}>
                 Anual
-                <span className={`text-xs px-2 py-0.5 rounded-full font-bold ${anual ? 'bg-white/20 text-white' : 'bg-[#ecfdf5] text-[#065f46]'}`}>-17%</span>
+                <span className={`text-xs px-2 py-0.5 rounded-full font-bold ${anual ? 'bg-white/20 text-white' : 'bg-[#ecfdf5] text-[#065f46]'}`}>2 meses grátis</span>
               </button>
             </div>
           </div>
@@ -845,17 +820,20 @@ export default function App() {
                   {p.features.map((f, j) => (
                     <li key={j} className={`flex items-start gap-2.5 text-sm ${p.destaque ? 'text-white/90' : 'text-gray-600'}`}>
                       <span className={`mt-0.5 shrink-0 ${p.destaque ? 'text-[#6ee7b7]' : 'text-[#065f46]'}`}>✓</span>
-                      {f}
+                      <span>
+                        {f.texto}
+                        {f.novo && <span className={`ml-1.5 text-[10px] font-bold uppercase tracking-wide px-1.5 py-0.5 rounded-full ${p.destaque ? 'bg-white/20 text-white' : 'bg-[#d1fae5] text-[#065f46]'}`}>Novo</span>}
+                      </span>
                     </li>
                   ))}
                 </ul>
                 <button onClick={irParaCadastro} className={`w-full py-3.5 rounded-xl font-bold text-sm transition-all ${p.destaque ? 'bg-white text-[#065f46] hover:bg-gray-50' : 'bg-[#065f46] text-white hover:bg-[#047857]'}`}>
-                  {p.cta} — 7 dias grátis
+                  {p.cta} — {dias} dias grátis
                 </button>
               </div>
             ))}
           </div>
-          <p className="text-center text-gray-400 text-sm mt-6 md:mt-8">Todos os planos incluem 7 dias de teste grátis. Sem cartão de crédito.</p>
+          <p className="text-center text-gray-400 text-sm mt-6 md:mt-8">Todos os planos começam com {dias} dias de teste grátis, com tudo do plano {nomeDoPlano(grade, grade.trial.plano)}. Sem cartão de crédito.</p>
         </div>
       </section>
 
@@ -866,7 +844,7 @@ export default function App() {
             Pronta para organizar{' '}
             <span className="italic">sua clínica de vez?</span>
           </h2>
-          <p className="text-[#6ee7b7] text-base md:text-lg mb-6 md:mb-8">7 dias grátis, sem cartão, sem compromisso.</p>
+          <p className="text-[#6ee7b7] text-base md:text-lg mb-6 md:mb-8">{dias} dias grátis, sem cartão, sem compromisso.</p>
           <button onClick={irParaCadastro} className="w-full sm:w-auto bg-white text-[#065f46] font-bold px-8 md:px-10 py-4 rounded-xl text-lg hover:bg-gray-50 transition-colors">
             Quero organizar minha clínica
           </button>
@@ -909,9 +887,9 @@ export default function App() {
           </h2>
           <p className="text-gray-500 text-base md:text-xl mb-8 md:mb-10">Junte-se às fisioterapeutas que já organizam sua clínica com o FisioFlow.</p>
           <button onClick={irParaCadastro} className="w-full sm:w-auto bg-[#065f46] hover:bg-[#047857] text-white font-bold px-8 md:px-12 py-4 md:py-5 rounded-xl text-lg md:text-xl transition-all hover:shadow-xl hover:-translate-y-0.5">
-            Começar meus 7 dias grátis
+            Começar meus {dias} dias grátis
           </button>
-          <p className="text-gray-400 text-sm mt-4">7 dias grátis · Sem cartão · Cancele quando quiser</p>
+          <p className="text-gray-400 text-sm mt-4">{dias} dias grátis · Sem cartão · Cancele quando quiser</p>
         </div>
       </section>
 

@@ -2,6 +2,7 @@ import { useParams, Link, Navigate } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { getPostBySlug } from '../lib/posts'
+import { useGrade } from '../lib/planos'
 
 const CADASTRO_URL = 'https://app.usefisioflow.com.br/cadastro'
 
@@ -49,6 +50,7 @@ const mdComponents = {
 }
 
 export default function BlogPost() {
+  const grade = useGrade()
   const { slug } = useParams()
   const post = getPostBySlug(slug)
 
@@ -124,7 +126,7 @@ export default function BlogPost() {
             Experimente o FisioFlow grátis
           </h3>
           <p className="text-emerald-200 mb-6 text-sm">
-            7 dias sem compromisso. Sem cartão de crédito. Cancele quando quiser.
+            {grade.trial.dias} dias sem compromisso. Sem cartão de crédito. Cancele quando quiser.
           </p>
           <a
             href={CADASTRO_URL}

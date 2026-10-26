@@ -55,4 +55,4 @@ Clínicas que migraram para prontuário eletrônico relatam três benefícios co
 2. **Pacientes mais satisfeitos**: atendimento mais fluido, sem o fisioterapeuta folheando pilhas de papel
 3. **Gestão mais simples**: relatórios de produção, horas trabalhadas e evolução dos pacientes disponíveis em segundos
 
-Se você está pensando em dar esse passo, o FisioFlow oferece um prontuário eletrônico criado especificamente para fisioterapia e pilates, com 7 dias grátis para testar sem compromisso.
+Se você está pensando em dar esse passo, o FisioFlow oferece um prontuário eletrônico criado especificamente para fisioterapia e pilates, com 14 dias grátis para testar sem compromisso.

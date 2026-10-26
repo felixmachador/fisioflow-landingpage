@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { posts } from '../lib/posts'
+import { useGrade } from '../lib/planos'
 
 const CADASTRO_URL = 'https://app.usefisioflow.com.br/cadastro'
 
@@ -17,6 +18,7 @@ function formatDate(dateStr) {
 }
 
 export default function BlogList() {
+  const grade = useGrade()
   return (
     <div className="min-h-screen bg-white">
       {/* Navbar */}
@@ -108,7 +110,7 @@ export default function BlogList() {
             Pronto para organizar sua clínica?
           </h2>
           <p className="text-emerald-200 mb-8">
-            Teste o FisioFlow gratuitamente por 7 dias, sem cartão de crédito.
+            Teste o FisioFlow gratuitamente por {grade.trial.dias} dias, sem cartão de crédito.
           </p>
           <a
             href={CADASTRO_URL}
