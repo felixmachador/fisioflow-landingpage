@@ -1,5 +1,6 @@
-import { useState, useRef } from 'react'
-import { useGrade, montarPlanos, nomeDoPlano } from './lib/planos'
+import { useState } from 'react'
+import { useGrade, montarPlanos, nomeDoPlano, seloDoRecurso, menorPreco } from './lib/planos'
+import { LinhaRecurso, LegendaFicticia } from './components/Vitrine'
 
 const CADASTRO_URL = 'https://app.usefisioflow.com.br/cadastro'
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzcuhBA73Bx_p9JqsEtuKvALcF6p4N71sxujcxpq-IgvFzFwIRqZsem8vjkqxO9lVCn/exec'
@@ -88,6 +89,99 @@ const features = [
   },
 ]
 
+const formatarReais = (v) => Number(v).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 0 })
+
+const ANTES_DEPOIS = [
+  {
+    antes: 'O paciente esquece, falta, e você passa o fim da tarde mandando mensagem um por um para confirmar.',
+    depois: 'Na véspera, cada paciente recebe a confirmação no WhatsApp. A resposta já muda o status na agenda.'
+  },
+  {
+    antes: 'Ficha de papel, dor anotada em texto solto e evolução difícil de mostrar para o paciente.',
+    depois: 'Prontuário digital com corpo 3D, evolução em gráfico e laudo pronto para imprimir.'
+  },
+  {
+    antes: 'Mensalidade no caderno, cobrança constrangedora e contrato impresso que ninguém acha depois.',
+    depois: 'Financeiro com recibo e lembrete de pagamento, e contrato assinado pelo paciente no celular.'
+  },
+]
+
+// Tour pelas telas reais (public/telas, geradas das capturas do app com dados fictícios).
+// recurso = chave da grade de planos (GET /planos) que define o selo do plano.
+const TOUR = [
+  {
+    tela: 'agenda',
+    recurso: 'confirmacaoAutomatica',
+    rotulo: 'Agenda',
+    titulo: 'Agenda que se',
+    destaque: 'confirma sozinha',
+    texto: 'Marque uma vez e repita a semana inteira. Na véspera, o FisioFlow manda a confirmação para cada paciente, e quem cancela ou pede para remarcar avisa você.',
+    pontos: ['Sessões recorrentes em poucos cliques', 'Cores por tipo de atendimento e filtro por profissional', 'Confirmado, cancelado ou remarcar direto na agenda'],
+    alt: 'Agenda semanal do FisioFlow com as sessões coloridas por tipo de atendimento'
+  },
+  {
+    tela: 'central',
+    recurso: 'dashboardCompleto',
+    rotulo: 'Central da Clínica',
+    titulo: 'Seu dia inteiro',
+    destaque: 'numa tela só',
+    texto: 'Pacientes, financeiro do mês, agenda de hoje e inadimplentes logo ao abrir o sistema, com a distribuição da semana e a ocupação das turmas.',
+    pontos: ['Índice de saúde da clínica', 'Tarefas da equipe e aniversariantes do mês', 'Ocupação de cada turma de Pilates'],
+    alt: 'Central da Clínica do FisioFlow com pacientes, financeiro, agenda de hoje e distribuição semanal'
+  },
+  {
+    tela: 'evolucao',
+    recurso: 'prontuario',
+    rotulo: 'Prontuário e evolução',
+    titulo: 'Mostre a melhora',
+    destaque: 'em um gráfico',
+    texto: 'Cada sessão registrada vira um ponto no gráfico de dor, funcionalidade e satisfação. O paciente vê a própria evolução, e você tem os dados para o laudo.',
+    pontos: ['Fichas por especialidade: ortopédica, lombar, Pilates e mais', 'Corpo 3D para marcar onde dói', 'Anexos e histórico completo do paciente'],
+    alt: 'Gráfico de evolução clínica com dor caindo e funcionalidade subindo ao longo das sessões'
+  },
+  {
+    tela: 'laudo',
+    recurso: 'laudoIA',
+    rotulo: 'Laudo com IA',
+    titulo: 'O laudo,',
+    destaque: 'a Flora escreve',
+    texto: 'A Flora, assistente de IA do FisioFlow, redige o laudo a partir do prontuário e das evoluções. Você revisa, ajusta e imprime com o logo da clínica.',
+    pontos: ['Texto técnico a partir dos dados do paciente', 'Pronto para imprimir ou salvar em PDF', 'Você sempre revisa antes de assinar'],
+    alt: 'Laudo fisioterapêutico gerado pela Flora, pronto para imprimir'
+  },
+  {
+    tela: 'pilates',
+    recurso: 'turmas',
+    rotulo: 'Pilates',
+    titulo: 'Turmas, presença',
+    destaque: 'e reposição',
+    texto: 'Veja as turmas de cada dia, as vagas livres e quem está matriculado. Registrou uma falta? Marque a reposição numa turma com vaga.',
+    pontos: ['Ocupação e vagas de cada turma', 'Presença e falta em um toque', 'Reposição só onde tem vaga'],
+    alt: 'Grade de turmas de Pilates com alunas matriculadas e vagas disponíveis'
+  },
+  {
+    tela: 'financeiro',
+    recurso: 'financeiro',
+    rotulo: 'Financeiro',
+    titulo: 'Da agenda',
+    destaque: 'ao caixa',
+    texto: 'Mensalidades, pacotes de sessões e orçamentos aprovados viram cobranças. Recibo em um clique e lembrete de pagamento pelo WhatsApp.',
+    pontos: ['Pago, pendente e inadimplente à vista', 'Pacotes de sessões com controle de uso', 'Recibo em PDF para o paciente'],
+    alt: 'Lista de pagamentos do FisioFlow com mensalidades pagas e uma cobrança pendente'
+  },
+  {
+    tela: 'contrato-celular',
+    celular: true,
+    recurso: 'contratos',
+    rotulo: 'Contratos',
+    titulo: 'Contrato assinado',
+    destaque: 'no celular',
+    texto: 'Monte o contrato de fisioterapia ou de Pilates com as cláusulas da clínica e envie para o paciente assinar com o dedo, de onde estiver.',
+    pontos: ['Cláusulas da sua clínica, prontas para reutilizar', 'Assinatura pelo celular, sem imprimir', 'Comprovante guardado no perfil do paciente'],
+    alt: 'Celular mostrando a confirmação de contrato assinado com sucesso'
+  },
+]
+
 const montarFaqs = (grade) => [
   { q: 'Preciso instalar algum programa?', a: 'Não. O FisioFlow funciona 100% no navegador. Acesse de qualquer computador, tablet ou celular, em qualquer lugar.' },
   { q: 'Meus dados ficam seguros?', a: 'Sim. Seus dados ficam armazenados em servidores seguros com backup automático. Cada clínica acessa apenas seus próprios dados, com isolamento total.' },
@@ -96,187 +190,6 @@ const montarFaqs = (grade) => [
   { q: 'Tem período de teste gratuito?', a: `Sim, ${grade.trial.dias} dias grátis sem precisar de cartão de crédito. Você experimenta tudo do plano ${nomeDoPlano(grade, grade.trial.plano)} sem compromisso.` },
   { q: 'Como funciona a configuração assistida do plano Clínica?', a: 'Nossa equipe agenda uma videochamada para configurar o sistema junto com você — importar pacientes, configurar agenda, WhatsApp e tudo mais. Você começa a usar no mesmo dia.' },
 ]
-
-function MockDashboard() {
-  const semana = [
-    { label: 'Seg', total: 9 },
-    { label: 'Ter', total: 13 },
-    { label: 'Qua', total: 11, hoje: true },
-    { label: 'Qui', total: 14 },
-    { label: 'Sex', total: 10 },
-    { label: 'Sáb', total: 5 },
-    { label: 'Dom', total: 0 },
-  ]
-  const maxS = Math.max(...semana.map(d => d.total))
-
-  return (
-    <div style={{ fontFamily: 'system-ui, sans-serif' }} className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-100 w-full text-gray-900">
-      {/* Topbar */}
-      <div className="bg-[#065f46] px-4 py-2.5 flex items-center justify-between">
-        <span className="text-white/90 text-xs font-bold tracking-tight">FisioFlow</span>
-        <div className="flex items-center gap-1.5 bg-[#ecfdf5] border border-[#6ee7b7] rounded-full px-2.5 py-1">
-          <span className="text-[#065f46] text-[10px] font-semibold">Saúde</span>
-          <span className="text-[#065f46] text-[11px] font-bold">91</span>
-          <span className="text-[#065f46] text-[10px]">· Excelente</span>
-        </div>
-      </div>
-
-      <div className="flex">
-        {/* Sidebar */}
-        <div className="w-11 bg-gray-50 border-r border-gray-100 py-3 flex flex-col items-center gap-2.5">
-          {[
-            <svg key="0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-3.5 h-3.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>,
-            <svg key="1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-3.5 h-3.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>,
-            <svg key="2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-3.5 h-3.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>,
-            <svg key="3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-3.5 h-3.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>,
-            <svg key="4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-3.5 h-3.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>,
-          ].map((icon, i) => (
-            <div key={i} className={`w-7 h-7 rounded-lg flex items-center justify-center ${i === 0 ? 'bg-[#065f46] text-white' : 'text-gray-400'}`}>{icon}</div>
-          ))}
-        </div>
-
-        {/* Content */}
-        <div className="flex-1 p-3 overflow-hidden">
-          {/* Greeting */}
-          <div className="flex items-start justify-between mb-3">
-            <div>
-              <p className="text-xs font-bold text-gray-900 leading-tight">Boa tarde, Dra. Ana</p>
-              <p className="text-[10px] text-gray-400">quarta-feira, 16 de abril</p>
-            </div>
-          </div>
-
-          {/* 4 cards */}
-          <div className="grid grid-cols-4 gap-1.5 mb-2.5">
-            {/* Pacientes */}
-            <div className="bg-gray-50 rounded-xl p-2 border border-gray-100">
-              <p className="text-[8px] text-gray-400 uppercase tracking-wide mb-1">Pacientes</p>
-              <p className="text-base font-bold text-gray-900 leading-none mb-1">84</p>
-              <div className="flex gap-1 flex-wrap">
-                <span className="text-[7px] text-gray-400">Clín. <strong className="text-gray-600">71</strong></span>
-                <span className="text-[7px] text-gray-400">Dom. <strong className="text-gray-600">13</strong></span>
-              </div>
-              <span className="text-[7px] text-[#065f46] font-bold bg-[#ecfdf5] rounded-full px-1.5 py-0.5 mt-1 inline-block">+6 este mês</span>
-            </div>
-
-            {/* Financeiro */}
-            <div className="bg-gray-50 rounded-xl p-2 border border-gray-100">
-              <p className="text-[8px] text-gray-400 uppercase tracking-wide mb-1">Financeiro</p>
-              <p className="text-xs font-bold text-[#065f46] leading-none mb-1.5">R$ 12.840</p>
-              <div className="grid grid-cols-3 gap-px bg-white rounded p-1 border border-gray-100">
-                <div className="text-center">
-                  <p className="text-[6px] text-gray-400">Receb.</p>
-                  <p className="text-[7px] font-bold text-[#065f46]">18.2k</p>
-                </div>
-                <div className="text-center border-x border-gray-100">
-                  <p className="text-[6px] text-gray-400">Pend.</p>
-                  <p className="text-[7px] font-bold text-yellow-500">3.4k</p>
-                </div>
-                <div className="text-center">
-                  <p className="text-[6px] text-gray-400">Desp.</p>
-                  <p className="text-[7px] font-bold text-red-500">5.3k</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Agenda hoje */}
-            <div className="bg-gray-50 rounded-xl p-2 border border-gray-100">
-              <p className="text-[8px] text-gray-400 uppercase tracking-wide mb-1">Agenda hoje</p>
-              <p className="text-base font-bold text-gray-900 leading-none mb-1">11</p>
-              <div className="flex gap-1 flex-wrap">
-                <span className="text-[7px] text-gray-400">Conf. <strong className="text-[#065f46]">9</strong></span>
-                <span className="text-[7px] text-gray-400">Pend. <strong className="text-yellow-500">2</strong></span>
-              </div>
-            </div>
-
-            {/* Inadimplentes */}
-            <div className="bg-gray-50 rounded-xl p-2 border border-gray-100">
-              <p className="text-[8px] text-gray-400 uppercase tracking-wide mb-1">Inadimp.</p>
-              <p className="text-base font-bold text-red-500 leading-none mb-1">3</p>
-              <p className="text-[7px] text-gray-400">em atraso</p>
-              <p className="text-[7px] font-bold text-red-400 mt-0.5">R$ 1.240</p>
-            </div>
-          </div>
-
-          {/* Gráfico semanal */}
-          <div className="bg-gray-50 rounded-xl p-2.5 border border-gray-100 mb-2">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-[9px] font-semibold text-gray-700">Distribuição semanal</span>
-              <span className="text-[8px] bg-[#ecfdf5] text-[#065f46] font-semibold rounded-full px-2 py-0.5">62 esta semana · ▲8%</span>
-            </div>
-            <div className="grid grid-cols-7 gap-1">
-              {semana.map((d) => {
-                const pct = maxS > 0 ? (d.total / maxS) * 100 : 0
-                return (
-                  <div key={d.label} className="text-center">
-                    <div className="text-[7px] text-gray-400 mb-1">{d.label}</div>
-                    <div className="h-7 flex items-end justify-center">
-                      <div className="w-full rounded-sm transition-all" style={{
-                        height: `${Math.max(pct, d.total > 0 ? 8 : 0)}%`,
-                        background: d.hoje ? '#065f46' : '#10b981',
-                        opacity: d.hoje ? 1 : 0.55,
-                        minHeight: d.total > 0 ? 3 : 0,
-                      }} />
-                    </div>
-                    <div className={`text-[7px] mt-0.5 ${d.hoje ? 'font-bold text-gray-900' : 'text-gray-400'}`}>{d.total}</div>
-                  </div>
-                )
-              })}
-            </div>
-          </div>
-
-          {/* Turmas + Leads */}
-          <div className="grid grid-cols-2 gap-1.5">
-            <div className="bg-gray-50 rounded-xl p-2 border border-gray-100">
-              <div className="flex items-center justify-between mb-1.5">
-                <p className="text-[8px] font-semibold text-gray-700">Turmas ativas</p>
-                <span className="text-[7px] text-purple-600 font-bold bg-purple-50 rounded-full px-1.5 py-0.5">78% ocup.</span>
-              </div>
-              {[
-                { nome: 'Pilates Manhã', mat: 8, vagas: 10 },
-                { nome: 'Pilates Tarde', mat: 6, vagas: 8 },
-                { nome: 'Pilates Noite', mat: 7, vagas: 8 },
-              ].map((t, i) => (
-                <div key={i} className="mb-1.5">
-                  <div className="flex justify-between mb-0.5">
-                    <span className="text-[8px] text-gray-600 font-medium truncate">{t.nome}</span>
-                    <span className="text-[7px] text-gray-400 shrink-0 ml-1">{t.mat}/{t.vagas}</span>
-                  </div>
-                  <div className="h-1 bg-gray-200 rounded-full overflow-hidden">
-                    <div className="h-full bg-purple-500 rounded-full" style={{ width: `${(t.mat / t.vagas) * 100}%` }} />
-                  </div>
-                </div>
-              ))}
-            </div>
-            <div className="bg-gray-50 rounded-xl p-2 border border-gray-100">
-              <div className="flex items-center justify-between mb-1.5">
-                <p className="text-[8px] font-semibold text-gray-700">Leads CRM</p>
-                <span className="text-[7px] text-blue-600 font-bold bg-blue-50 rounded-full px-1.5 py-0.5">+4 mês</span>
-              </div>
-              <div className="space-y-1.5">
-                <div className="flex justify-between items-center">
-                  <span className="text-[8px] text-gray-500">Total</span>
-                  <span className="text-[11px] font-bold text-gray-900">27</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-[8px] text-gray-500">Novos</span>
-                  <span className="text-[8px] font-semibold text-blue-600">8</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-[8px] text-gray-500">Sem resposta</span>
-                  <span className="text-[8px] font-semibold text-yellow-500">5</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-[8px] text-gray-500">Conversão</span>
-                  <span className="text-[8px] font-semibold text-[#065f46]">34%</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
 
 export default function App() {
   const grade = useGrade()
@@ -357,9 +270,10 @@ export default function App() {
       {/* Nav */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100">
         <div className="max-w-6xl mx-auto px-4 md:px-6 py-3 md:py-4 flex justify-between items-center">
-          <img src="/logo.png" alt="FisioFlow" className="h-10 md:h-14 w-auto object-contain" />
+          <img src="/logo.png" alt="FisioFlow" className="h-9 md:h-14 w-auto object-contain" />
           <div className="hidden md:flex items-center gap-8">
             <a href="#funcionalidades" className="text-sm text-gray-500 hover:text-gray-900 transition-colors font-medium">Funcionalidades</a>
+            <a href="#video" className="text-sm text-gray-500 hover:text-gray-900 transition-colors font-medium">Vídeo</a>
             <a href="#precos" className="text-sm text-gray-500 hover:text-gray-900 transition-colors font-medium">Preços</a>
             <a href="#faq" className="text-sm text-gray-500 hover:text-gray-900 transition-colors font-medium">FAQ</a>
             <a href="/blog" className="text-sm text-gray-500 hover:text-gray-900 transition-colors font-medium">Blog</a>
@@ -368,78 +282,68 @@ export default function App() {
           </div>
           <div className="md:hidden flex items-center gap-3">
             <a href="https://app.usefisioflow.com.br" className="text-sm text-gray-500 hover:text-gray-900 transition-colors font-medium">Entrar</a>
-            <BotaoPrimario className="text-sm px-4 py-2" />
+            <BotaoPrimario className="text-sm px-4 py-2 whitespace-nowrap" texto="Teste grátis" />
           </div>
         </div>
       </nav>
 
       {/* Hero */}
-      <section className="min-h-screen flex items-center pt-20 md:pt-24 pb-12 md:pb-16 px-4 md:px-6 bg-gradient-to-br from-white via-[#f0fdf4] to-white overflow-hidden">
+      <section className="relative pt-28 md:pt-36 pb-14 md:pb-24 px-4 md:px-6 bg-gradient-to-b from-[#f0fdf4] via-white to-white overflow-hidden">
         <div className="max-w-6xl mx-auto w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-[0.95fr_1.05fr] gap-10 lg:gap-14 items-center">
             <div>
-              <div className="inline-flex items-center gap-2 bg-[#ecfdf5] border border-[#6ee7b7] rounded-full px-4 py-2 mb-6 md:mb-8">
+              <div className="inline-flex items-center gap-2 bg-[#ecfdf5] border border-[#6ee7b7] rounded-full px-4 py-2 mb-6">
                 <span className="w-2 h-2 bg-[#22c55e] rounded-full animate-pulse" />
-                <span className="text-[#065f46] text-sm font-semibold">{dias} dias grátis · Sem cartão</span>
+                <span className="text-[#065f46] text-sm font-semibold">{dias} dias grátis · sem cartão de crédito</span>
               </div>
-              <h1 className="serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.1] mb-4 md:mb-6 text-gray-900">
-                Gestão completa para sua{' '}
-                <span className="italic text-[#065f46]">clínica de fisioterapia</span>
+              <h1 className="serif text-4xl sm:text-5xl lg:text-6xl leading-[1.05] mb-5 md:mb-6 text-gray-900">
+                Sua agenda se confirma{' '}
+                <span className="italic text-[#065f46]">sozinha.</span>
               </h1>
-              <p className="text-base md:text-lg text-gray-500 mb-6 md:mb-8 leading-relaxed max-w-lg">
-                Agenda, prontuário, financeiro, pilates e WhatsApp automático. Tudo em um sistema feito por fisioterapeutas, para fisioterapeutas.
+              <p className="text-base md:text-lg text-gray-600 mb-7 md:mb-8 leading-relaxed max-w-xl">
+                Na véspera, o paciente recebe a confirmação no WhatsApp e responde com um toque. A agenda se atualiza na hora.
+                Prontuário, Pilates, financeiro e contratos no mesmo sistema, feito para fisioterapeutas.
               </p>
-              <div className="flex flex-col sm:flex-row gap-3 mb-8 md:mb-12">
-                <BotaoPrimario className="px-6 md:px-8 py-3.5 md:py-4 text-base w-full sm:w-auto text-center" />
-                <a href="#funcionalidades" className="border border-gray-200 hover:border-gray-300 text-gray-700 font-medium px-6 md:px-8 py-3.5 md:py-4 rounded-xl text-base transition-colors text-center">
-                  Ver funcionalidades
+              <div className="flex flex-col sm:flex-row gap-3 mb-6">
+                <BotaoPrimario className="px-7 py-4 text-base w-full sm:w-auto text-center" texto={`Testar grátis por ${dias} dias`} />
+                <a href="#video" className="inline-flex items-center justify-center gap-2 border border-gray-200 hover:border-[#6ee7b7] bg-white text-gray-700 font-semibold px-6 py-4 rounded-xl text-base transition-colors">
+                  <span className="w-7 h-7 rounded-full bg-[#065f46] text-white flex items-center justify-center" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5 ml-0.5"><path d="M8 5v14l11-7z" /></svg>
+                  </span>
+                  Ver em 45 segundos
                 </a>
               </div>
-              <div className="flex items-center gap-4">
-                <div className="flex -space-x-2">
-                  {['#065f46','#047857','#059669','#10b981'].map((c, i) => (
-                    <div key={i} className="w-8 h-8 rounded-full border-2 border-white flex items-center justify-center text-white text-xs font-bold" style={{ background: c }}>
-                      {['P','A','M','C'][i]}
-                    </div>
-                  ))}
-                </div>
-                <div>
-                  <div className="flex gap-0.5 mb-0.5">{[...Array(5)].map((_, i) => <span key={i} className="text-yellow-400 text-sm">★</span>)}</div>
-                  <p className="text-xs text-gray-500">Usado por fisioterapeutas em todo o Brasil</p>
-                </div>
-              </div>
+              <p className="text-sm text-gray-500">
+                Planos a partir de <strong className="text-gray-900">{formatarReais(menorPreco(grade))}/mês</strong>. Cancele quando quiser.
+              </p>
             </div>
-            <div className="relative hidden lg:block">
-              <div className="absolute inset-0 bg-gradient-to-br from-[#ecfdf5] to-[#d1fae5] rounded-3xl -rotate-2 scale-105" />
-              <div className="relative"><MockDashboard /></div>
-              <div className="absolute -left-8 top-1/3 bg-white rounded-2xl shadow-xl p-3 border border-gray-100 flex items-center gap-3">
-                <div className="w-8 h-8 bg-[#ecfdf5] rounded-xl flex items-center justify-center text-[#065f46] text-sm font-bold">47</div>
-                <div>
-                  <p className="text-xs font-semibold text-gray-700">Pacientes ativos</p>
-                  <p className="text-xs text-gray-400">este mês</p>
-                </div>
+            <div>
+              <div className="relative">
+                <div className="absolute -inset-4 md:-inset-6 bg-gradient-to-br from-[#d1fae5] to-[#ecfdf5] rounded-[2rem] rotate-1" aria-hidden="true" />
+                <img
+                  src="/telas/hero-agenda-whatsapp.webp"
+                  srcSet="/telas/hero-agenda-whatsapp-800.webp 800w, /telas/hero-agenda-whatsapp.webp 1600w"
+                  sizes="(min-width: 1024px) 620px, 100vw"
+                  alt="Agenda do FisioFlow com a sessão confirmada e, ao lado, o celular do paciente respondendo à confirmação no WhatsApp"
+                  fetchpriority="high"
+                  className="relative w-full h-auto rounded-2xl shadow-[0_30px_80px_-25px_rgba(6,95,70,0.55)]"
+                />
               </div>
-              <div className="absolute -right-6 bottom-1/4 bg-white rounded-2xl shadow-xl p-3 border border-gray-100 flex items-center gap-3">
-                <div className="w-8 h-8 bg-green-50 rounded-xl flex items-center justify-center text-green-600 text-sm">✓</div>
-                <div>
-                  <p className="text-xs font-semibold text-gray-700">WhatsApp enviado</p>
-                  <p className="text-xs text-gray-400">confirmação automática</p>
-                </div>
-              </div>
+              <LegendaFicticia className="mt-9 text-center lg:text-right" />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Stats bar */}
-      <section className="bg-[#065f46] py-8 md:py-10 px-4 md:px-6">
-        <div className="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 text-center">
+      {/* Faixa de benefícios */}
+      <section className="bg-[#065f46] py-7 md:py-9 px-4 md:px-6">
+        <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-8 text-center">
           {[
-            { valor: '100%', label: 'Online e seguro' },
-            { valor: `${dias} dias`, label: 'Grátis para testar' },
-            { valor: 'Ilimitados', label: 'Pacientes no Equipe e Clínica' },
+            { valor: 'WhatsApp', label: 'Confirmação automática das sessões' },
+            { valor: `${dias} dias`, label: 'Grátis para testar, sem cartão' },
+            { valor: formatarReais(menorPreco(grade)), label: 'Por mês no plano Solo' },
           ].map((s, i) => (
-            <div key={i} className={i < 2 ? 'sm:border-0 border-b border-[#047857] pb-4 sm:pb-0' : ''}>
+            <div key={i} className={i < 2 ? 'sm:border-0 border-b border-[#047857] pb-5 sm:pb-0' : ''}>
               <p className="text-2xl md:text-3xl font-bold text-white mb-1">{s.valor}</p>
               <p className="text-[#6ee7b7] text-sm">{s.label}</p>
             </div>
@@ -447,17 +351,80 @@ export default function App() {
         </div>
       </section>
 
-      {/* Funcionalidades */}
-      <section id="funcionalidades" className="py-10 md:py-16 px-4 md:px-6 bg-gray-50">
+      {/* Antes e depois */}
+      <section className="py-12 md:py-20 px-4 md:px-6 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-10 md:mb-14">
+            <p className="text-[#065f46] font-semibold text-sm uppercase tracking-widest mb-3">Sua rotina</p>
+            <h2 className="serif text-3xl md:text-5xl text-gray-900 mb-4">Menos retrabalho, <span className="italic text-[#065f46]">mais atendimento</span></h2>
+            <p className="text-gray-500 text-base md:text-xl max-w-2xl mx-auto">O que hoje toma o seu fim de tarde, o FisioFlow faz por você.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {ANTES_DEPOIS.map((c, i) => (
+              <div key={i} className="rounded-2xl border border-gray-100 bg-gray-50 p-6 flex flex-col">
+                <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-2">Antes</p>
+                <p className="text-gray-500 text-sm leading-relaxed mb-5">{c.antes}</p>
+                <div className="mt-auto rounded-xl bg-white border border-[#a7f3d0] p-4">
+                  <p className="text-xs font-semibold uppercase tracking-widest text-[#065f46] mb-2">Com o FisioFlow</p>
+                  <p className="text-gray-800 text-sm leading-relaxed font-medium">{c.depois}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Tour pelas telas reais */}
+      <section id="funcionalidades" className="py-12 md:py-20 px-4 md:px-6 bg-gray-50 overflow-hidden">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12 md:mb-20">
+            <p className="text-[#065f46] font-semibold text-sm uppercase tracking-widest mb-3">Por dentro do FisioFlow</p>
+            <h2 className="serif text-3xl md:text-5xl text-gray-900 mb-4">A clínica inteira <span className="italic text-[#065f46]">num lugar só</span></h2>
+            <p className="text-gray-500 text-base md:text-xl max-w-2xl mx-auto">Estas são as telas do sistema, do jeito que você vai usar.</p>
+          </div>
+          <div className="space-y-20 md:space-y-28">
+            {TOUR.map((item, i) => (
+              <LinhaRecurso key={item.tela} item={item} invertido={i % 2 === 1} selo={seloDoRecurso(grade, item.recurso)} />
+            ))}
+          </div>
+          <div className="text-center mt-16 md:mt-24">
+            <BotaoPrimario className="px-8 py-4 text-base w-full sm:w-auto" texto={`Quero testar por ${dias} dias`} />
+            <p className="text-gray-400 text-sm mt-3">Sem cartão de crédito · Cancele quando quiser</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Showreel */}
+      <section id="video" className="py-12 md:py-20 px-4 md:px-6 bg-[#04251a]">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-8 md:mb-12">
+            <p className="text-[#6ee7b7] font-semibold text-sm uppercase tracking-widest mb-3">Em 45 segundos</p>
+            <h2 className="serif text-3xl md:text-5xl text-white mb-4">Veja o FisioFlow <span className="italic text-[#6ee7b7]">funcionando</span></h2>
+            <p className="text-white/60 text-base md:text-lg max-w-2xl mx-auto">Da confirmação no WhatsApp ao contrato assinado no celular, passando pelo prontuário, pelo Pilates e pelo financeiro.</p>
+          </div>
+          <video
+            src="/fisioflow-showreel.mp4"
+            poster="/telas/showreel-capa.jpg"
+            controls
+            preload="none"
+            playsInline
+            className="w-full rounded-2xl shadow-2xl border border-white/10 bg-black aspect-video"
+          />
+          <p className="text-[11px] text-white/40 mt-4 text-center">Imagens ilustrativas · os dados exibidos são fictícios</p>
+        </div>
+      </section>
+
+      {/* E tem mais */}
+      <section id="mais" className="py-12 md:py-20 px-4 md:px-6 bg-white">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-10 md:mb-16">
-            <p className="text-[#065f46] font-semibold text-sm uppercase tracking-widest mb-3">Funcionalidades</p>
+            <p className="text-[#065f46] font-semibold text-sm uppercase tracking-widest mb-3">E tem mais</p>
             <h2 className="serif text-3xl md:text-4xl lg:text-5xl text-gray-900 mb-4">Tudo que sua clínica precisa</h2>
             <p className="text-gray-500 text-base md:text-xl max-w-2xl mx-auto">Construído com fisioterapeutas, para fisioterapeutas. Cada detalhe pensado na sua rotina.</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-4">
             {features.map((f, i) => (
-              <div key={i} className="bg-white border border-gray-100 rounded-2xl p-6 hover:border-[#6ee7b7] hover:shadow-md transition-all duration-200 group">
+              <div key={i} className="bg-gray-50 border border-gray-100 rounded-2xl p-6 hover:border-[#6ee7b7] hover:shadow-md transition-all duration-200 group">
                 <div className="w-10 h-10 bg-[#ecfdf5] rounded-xl flex items-center justify-center text-[#065f46] mb-4 group-hover:bg-[#065f46] group-hover:text-white transition-colors duration-200">
                   {f.icon}
                 </div>
@@ -487,7 +454,7 @@ export default function App() {
       </section>
 
       {/* Corpo 3D */}
-      <section className="py-10 md:py-16 px-4 md:px-6 bg-white overflow-hidden">
+      <section className="py-12 md:py-20 px-4 md:px-6 bg-gray-50 overflow-hidden">
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             {/* Vídeo */}
@@ -544,7 +511,7 @@ export default function App() {
       </section>
 
       {/* FisioFlow Club */}
-      <section className="py-10 md:py-16 px-4 md:px-6 bg-white">
+      <section className="py-12 md:py-20 px-4 md:px-6 bg-white">
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             <div>
@@ -611,7 +578,7 @@ export default function App() {
       </section>
 
       {/* Depoimentos */}
-      <section className="py-10 md:py-16 px-4 md:px-6 bg-white">
+      <section className="py-12 md:py-20 px-4 md:px-6 bg-gray-50">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-10 md:mb-16">
             <p className="text-[#065f46] font-semibold text-sm uppercase tracking-widest mb-3">Depoimentos</p>
@@ -624,7 +591,7 @@ export default function App() {
               { nome: 'Ana Carolina', cargo: 'Fisioterapeuta e instrutora de Pilates', texto: 'A parte de pilates é incrível. Consigo controlar as turmas, as presenças e as reposições de forma muito simples. Minha equipe adorou.' },
               { nome: 'Mariana Souza', cargo: 'Fisioterapeuta — Atendimento domiciliar', texto: 'O prontuário eletrônico é completo e fácil de usar. Economizo pelo menos 20 minutos por dia que antes gastava preenchendo fichas em papel.' },
             ].map((d, i) => (
-              <div key={i} className="bg-gray-50 border border-gray-100 rounded-2xl p-6 flex flex-col">
+              <div key={i} className="bg-white border border-gray-100 rounded-2xl p-6 flex flex-col">
                 <div className="flex gap-0.5 mb-4">{[...Array(5)].map((_, j) => <span key={j} className="text-yellow-400">★</span>)}</div>
                 <p className="text-gray-600 text-sm leading-relaxed mb-6 flex-1">"{d.texto}"</p>
                 <div className="flex items-center gap-3">
@@ -641,88 +608,10 @@ export default function App() {
       </section>
 
       {/* Mobile */}
-      <section className="py-10 md:py-16 px-4 md:px-6 bg-gray-50 overflow-hidden">
+      <section className="py-12 md:py-20 px-4 md:px-6 bg-white overflow-hidden">
         <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-            <div className="flex justify-center order-2 lg:order-1">
-              <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-br from-[#ecfdf5] to-[#d1fae5] rounded-3xl scale-110" />
-                <div className="relative p-8 md:p-12">
-                  <div className="w-[200px] mx-auto relative">
-                  {/* botões laterais colados no frame */}
-                  <div className="absolute -left-[4px] top-[80px] w-[4px] h-7 bg-gray-700 rounded-l-full" />
-                  <div className="absolute -left-[4px] top-[120px] w-[4px] h-10 bg-gray-700 rounded-l-full" />
-                  <div className="absolute -left-[4px] top-[168px] w-[4px] h-10 bg-gray-700 rounded-l-full" />
-                  <div className="absolute -right-[4px] top-[120px] w-[4px] h-14 bg-gray-700 rounded-r-full" />
-                  <div className="bg-gray-900 rounded-[2.8rem] p-[3px] shadow-2xl" style={{ boxShadow: '0 30px 70px rgba(0,0,0,0.45)' }}>
-                    <div className="relative">
-                      {/* dynamic island */}
-                      <div className="absolute top-[10px] left-1/2 -translate-x-1/2 w-[56px] h-[18px] bg-gray-900 rounded-full z-20" />
-                      <div className="bg-white rounded-[2.6rem] overflow-hidden flex flex-col" style={{ height: 420 }}>
-                        {/* status bar */}
-                        <div className="bg-[#065f46] px-5 pt-9 pb-2 flex items-center justify-between shrink-0">
-                          <span className="text-white/70 text-[9px] font-medium">9:41</span>
-                          <div className="flex items-center gap-1">
-                            <svg viewBox="0 0 24 24" fill="currentColor" className="w-2.5 h-2.5 text-white/60"><path d="M1.5 8.25a.75.75 0 0 1 .75-.75h19.5a.75.75 0 0 1 0 1.5H2.25a.75.75 0 0 1-.75-.75ZM1.5 12a.75.75 0 0 1 .75-.75h19.5a.75.75 0 0 1 0 1.5H2.25A.75.75 0 0 1 1.5 12Zm0 3.75a.75.75 0 0 1 .75-.75h19.5a.75.75 0 0 1 0 1.5H2.25a.75.75 0 0 1-.75-.75Z"/></svg>
-                            <svg viewBox="0 0 24 24" fill="currentColor" className="w-2.5 h-2.5 text-white/60"><path fillRule="evenodd" d="M1.371 8.143c5.858-5.857 15.356-5.857 21.213 0a.75.75 0 0 1 0 1.061l-.53.53a.75.75 0 0 1-1.06 0C16.22 5.06 7.78 5.06 3.006 9.734a.75.75 0 0 1-1.06 0l-.53-.53a.75.75 0 0 1-.046-1.062Zm3.182 3.182c4.09-4.09 10.724-4.09 14.814 0a.75.75 0 0 1 0 1.061l-.53.53a.75.75 0 0 1-1.06 0 8.25 8.25 0 0 0-11.667 0 .75.75 0 0 1-1.06 0l-.53-.53a.75.75 0 0 1 0-1.06Zm3.204 3.204a6 6 0 0 1 8.486 0 .75.75 0 0 1 0 1.061l-.53.53a.75.75 0 0 1-1.061 0 3.75 3.75 0 0 0-5.304 0 .75.75 0 0 1-1.06 0l-.53-.53a.75.75 0 0 1 0-1.06Zm3.182 3.182a3 3 0 0 1 2.122.879.75.75 0 0 1 0 1.06l-.53.53a.75.75 0 0 1-1.061 0 .75.75 0 0 0-1.061 0 .75.75 0 0 1-1.06 0l-.53-.53a.75.75 0 0 1 0-1.06 3 3 0 0 1 2.12-.879Z" clipRule="evenodd"/></svg>
-                            <svg viewBox="0 0 24 24" fill="currentColor" className="w-3 h-2.5 text-white/60"><path d="M6 12a.75.75 0 0 1-.75-.75v-7.5a.75.75 0 0 1 1.5 0v7.5A.75.75 0 0 1 6 12ZM10.5 12a.75.75 0 0 1-.75-.75v-11.5a.75.75 0 0 1 1.5 0v11.5a.75.75 0 0 1-.75.75ZM15 12a.75.75 0 0 1-.75-.75v-8.5a.75.75 0 0 1 1.5 0v8.5A.75.75 0 0 1 15 12ZM19.5 12a.75.75 0 0 1-.75-.75V4.5a.75.75 0 0 1 1.5 0v6.75a.75.75 0 0 1-.75.75Z"/></svg>
-                          </div>
-                        </div>
-                        {/* content */}
-                        <div className="flex-1 overflow-hidden p-3">
-                          <p className="text-[9px] font-bold text-gray-900 mb-0.5">Boa tarde, Dra. Ana</p>
-                          <p className="text-[8px] text-gray-400 mb-2.5">quarta-feira, 16 de abril</p>
-                          {/* cards 2x2 */}
-                          <div className="grid grid-cols-2 gap-1.5 mb-2.5">
-                            <div className="bg-gray-50 rounded-lg p-2 border border-gray-100">
-                              <p className="text-[7px] text-gray-400 uppercase mb-1">Pacientes</p>
-                              <p className="text-sm font-bold text-gray-900 leading-none">84</p>
-                              <p className="text-[7px] text-[#065f46] font-bold mt-1">+6 este mês</p>
-                            </div>
-                            <div className="bg-gray-50 rounded-lg p-2 border border-gray-100">
-                              <p className="text-[7px] text-gray-400 uppercase mb-1">Financeiro</p>
-                              <p className="text-[11px] font-bold text-[#065f46] leading-none">R$ 12.840</p>
-                              <p className="text-[7px] text-yellow-500 font-semibold mt-1">Pend. 3.4k</p>
-                            </div>
-                            <div className="bg-gray-50 rounded-lg p-2 border border-gray-100">
-                              <p className="text-[7px] text-gray-400 uppercase mb-1">Agenda hoje</p>
-                              <p className="text-sm font-bold text-gray-900 leading-none">11</p>
-                              <p className="text-[7px] text-gray-400 mt-1">Conf. <strong className="text-[#065f46]">9</strong></p>
-                            </div>
-                            <div className="bg-gray-50 rounded-lg p-2 border border-gray-100">
-                              <p className="text-[7px] text-gray-400 uppercase mb-1">Inadimp.</p>
-                              <p className="text-sm font-bold text-red-500 leading-none">3</p>
-                              <p className="text-[7px] text-red-400 font-semibold mt-1">R$ 1.240</p>
-                            </div>
-                          </div>
-                          {/* agenda do dia */}
-                          <p className="text-[8px] font-semibold text-gray-600 mb-1.5">Agenda de hoje</p>
-                          <div className="space-y-1">
-                            {[
-                              { hora: '08:00', nome: 'Maria Silva', cor: '#ecfdf5', borda: '#6ee7b7' },
-                              { hora: '09:00', nome: 'Turma Pilates A', cor: '#eff6ff', borda: '#93c5fd' },
-                              { hora: '10:30', nome: 'Ana Costa', cor: '#fff7ed', borda: '#fcd34d' },
-                              { hora: '14:00', nome: 'João Pereira', cor: '#ecfdf5', borda: '#6ee7b7' },
-                            ].map((a, i) => (
-                              <div key={i} className="flex items-center gap-1.5 rounded px-1.5 py-1 border" style={{ background: a.cor, borderColor: a.borda }}>
-                                <span className="text-[8px] font-mono text-gray-400 w-8 shrink-0">{a.hora}</span>
-                                <span className="text-[8px] font-semibold text-gray-700">{a.nome}</span>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                        {/* home bar */}
-                        <div className="flex justify-center pb-3 pt-1 shrink-0">
-                          <div className="w-20 h-1 bg-gray-800 rounded-full" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="order-1 lg:order-2">
+          <div className="max-w-4xl mx-auto text-center">
+            <div>
               <div className="inline-flex items-center gap-2 bg-[#ecfdf5] border border-[#6ee7b7] rounded-full px-4 py-2 mb-6">
                 <span className="text-[#065f46] text-sm font-semibold">Acesse de qualquer lugar</span>
               </div>
@@ -730,10 +619,10 @@ export default function App() {
                 Na palma da{' '}
                 <span className="italic text-[#065f46]">sua mão</span>
               </h2>
-              <p className="text-gray-500 text-base md:text-lg leading-relaxed mb-6 md:mb-8">
+              <p className="text-gray-500 text-base md:text-lg leading-relaxed mb-8 md:mb-10 max-w-2xl mx-auto">
                 O FisioFlow funciona 100% no navegador, sem instalação. Acesse pelo celular entre atendimentos, pelo tablet na recepção ou pelo computador no consultório.
               </p>
-              <div className="space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-left">
                 {[
                   {
                     icon: (
@@ -763,7 +652,7 @@ export default function App() {
                     desc: 'Experiência completa no desktop, sem instalar nada — basta abrir o navegador.',
                   },
                 ].map((item, i) => (
-                  <div key={i} className="flex items-start gap-4">
+                  <div key={i} className="flex items-start gap-4 bg-white border border-gray-100 rounded-2xl p-5">
                     <div className="w-10 h-10 bg-[#ecfdf5] rounded-xl flex items-center justify-center text-[#065f46] shrink-0 mt-0.5">
                       {item.icon}
                     </div>

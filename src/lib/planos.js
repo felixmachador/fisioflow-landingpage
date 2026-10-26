@@ -68,3 +68,16 @@ export function montarPlanos(grade) {
 }
 
 export const nomeDoPlano = (grade, id) => grade.planos.find(p => p.id === id)?.nome || id
+
+// Selo do plano em que um recurso está, para o tour de funcionalidades
+export function seloDoRecurso(grade, chave) {
+  const recurso = grade.recursos.find(r => r.chave === chave)
+  if (!recurso) return null
+  const i = grade.planos.findIndex(p => p.id === recurso.planoMinimo)
+  const nome = grade.planos[i]?.nome
+  if (i <= 0) return 'Em todos os planos'
+  if (i === grade.planos.length - 1) return `Plano ${nome}`
+  return `A partir do plano ${nome}`
+}
+
+export const menorPreco = (grade) => Math.min(...grade.planos.map(p => p.precos.mensal))
